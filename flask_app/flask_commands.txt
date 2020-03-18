@@ -1,0 +1,23 @@
+
+cd Documents
+cd flask_app
+py -m venv env                 // virtual environment name
+env\Scripts\activate           
+pip install flask
+set FLASK_APP=filename.py
+flask run                     //copy paste URL on the browser
+
+
+
+
+
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return "Hello World"
+
+if __name__ == '__main__':
+    app.run(debug=True)
