@@ -12,6 +12,16 @@ Usage Steps:
 to be continued...
 
 ## About Files
-The [Test1.py](./Test1.py) contains the code to connect to the DB as well as the code for all basic operations on the DB
+[Test1.py](./Test1.py) file contains:
+1. The code to connect to the DB
+2. The code for all basic operations on the DB such as:
+- Adding new registration
+- Finding a registration
+- Marking a registration as paid
+- Showing all registrations for an event
+- Adding an event
+- Editing event details
+- Showing all events
+- Showing details of a particular event
 
 to be continued...
