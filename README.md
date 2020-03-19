@@ -15,13 +15,13 @@ to be continued...
 [Test1.py](./Test1.py) file contains:
 1. The code to connect to the DB
 2. The code for all basic operations on the DB such as:
-- Adding new registration
-- Finding a registration
-- Marking a registration as paid
-- Showing all registrations for an event
-- Adding an event
-- Editing event details
-- Showing all events
-- Showing details of a particular event
+   - Adding new registration
+   - Finding a registration
+   - Marking a registration as paid
+   - Showing all registrations for an event
+   - Adding an event
+   - Editing event details
+   - Showing all events
+   - Showing details of a particular event
 
 to be continued...
