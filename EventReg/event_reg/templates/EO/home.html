@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block homeurl %}
+    <a class="nav-item nav-link" href="{{ url_for('EO.home') }}">Home</a>
+{% endblock homeurl %}
+{% block rightnav %}
+    <a class="nav-item nav-link" href="{{ url_for('EO.newUser') }}">Create User</a>
+    <a class="nav-item nav-link" href="{{ url_for('EO.editUser') }}">Edit Users</a>
+    <a class="nav-item nav-link" href="{{ url_for('EO.registrations') }}">View Registrations</a>
+{% endblock rightnav %}
+{% block content %}
+    <div class="card text-center">
+        <img src="sth" class="card-img" alt="welcome pic">
+        <div class="card-img-overlay">
+            <h5 class="card-title">Welcome Event Organiser!</h5>
+            <p class="card-text">Click on the links in the navigation bar.</p>
+        </div>
+    </div>
+{% endblock content %}
