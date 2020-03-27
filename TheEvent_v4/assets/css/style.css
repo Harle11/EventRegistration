@@ -712,7 +712,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #flagship .event .details a:hover {
-  color: #00004d;
+  text-decoration: underline overline;
 }
 
 #flagship .event:hover .details {
@@ -737,6 +737,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #flagship .about-btn:hover {
+  text-decoration: none;
   background: #00004d;
   color: #fff;
 }
@@ -786,7 +787,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #workshops .event .details a:hover {
-  color: #00004d;
+  text-decoration: underline overline;
 }
 
 #workshops .event:hover .details {
@@ -811,6 +812,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #workshops .about-btn:hover {
+  text-decoration: none;
   background: #00004d;
   color: #fff;
 }
@@ -855,7 +857,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #gevents a:hover {
-  color: #00004d;
+  text-decoration: underline overline;
 }
 
 #gevents .event p {
@@ -884,8 +886,44 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #gevents .about-btn:hover {
+  text-decoration: none;
   background: #00004d;
   color: #fff;
+}
+
+#gevents .nav-tabs {
+  text-align: center;
+  margin: auto;
+  display: block;
+  border-bottom: 0;
+  margin-bottom: 30px;
+}
+
+#gevents .nav-tabs li {
+  display: inline-block;
+  margin-bottom: 0;
+}
+
+#gevents .nav-tabs a {
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  color: #00004d;
+  padding: 10px 50px;
+  border: 2px solid #00004d;
+}
+
+#gevents .nav-tabs a.active {
+  background-color: #00004d;
+  color: #fff;
+}
+
+#gevents .tab-pane {
+  transition: ease-in-out .2s;
+}
+
+#gevents .nav-tabs a {
+  text-decoration: none;
 }
 
 /*--------------------------------------------------------------
@@ -949,19 +987,19 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #schedule .event:hover {
-  transition: background-color ease-in-out 0.7s;
+  transition: color ease-in-out 0.5s;
   background-color: #00004d;
   color:#fff;
 }
 
 #schedule .event1:hover {
-  transition: background-color ease-in-out 0.7s;
+  transition: color ease-in-out 0.5s;
   background-color: #00004d;
   color:#fff;
 }
 
 #schedule .event2:hover {
-  transition: background-color ease-in-out 0.7s;
+  transition: color ease-in-out 0.5s;
   background-color: #00004d;
   color:#fff;
 }
