@@ -1,9 +1,11 @@
-V3
-  -updated main UI
-  -renamed speaker-details to event-details
+V4
   -added events.html
   -added flagship.html
   -added workshops.html
+
+V3
+  -updated main UI
+  -renamed speaker-details to event-details
 
 V2
   - Removed Unused files and folders
