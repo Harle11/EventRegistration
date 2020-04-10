@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block headerclass %}
+  style="background: #99b3ff;height: 70px;padding: 15px 0"
+{% endblock %}
+{% block navigation %}
+  <li><a href="{{ url_for('home')}}">Home</a></li>
+  <li><a href="{{ url_for('all_events')}}"> General Events</a></li>
+{% endblock navigation %}
+{% block content %}
+  <main id="main" class="main-page">
+    <!-- ======= Event Details Sectionn ======= -->
+    <section id="event-details" class="wow fadeIn">
+      <div class="container">
+        <div class="section-header">
+          <h2>Event Details</h2>
+          <p>Description of the event.</p>
+        </div>
+        <div class="col-md-12">
+          <div class="details">
+            <h2>{{ event.name }}</h2>
+            <p><b>Event type: </b>{{ event.etype }}</p>
+            <p><b>Description: </b>Technical oriented treasure hunt where each team acts upon successive clues and are eventually directed to a prize.</p>
+            <p><b>Registration fee: </b>Rs. 200/team.</p>
+            <p><b>Team size: </b>Maximum of 3 members.</p>
+            <p><b>Prize: </b>Rs.4000 for winners & Rs.2000 for runner-up</p>
+            <p><b>Venue: </b>MCA LAB, P.G Block</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="container regform">
+        <!--div class="row justify-content-md-center"-->
+          <div class="col-md-12">
+            <h2 class="title">Registration Form</h2>
+            <form method="POST">
+              <div class="input-group">
+                <input  type="text" placeholder="Name" name="name" size="50">
+              </div>
+              <div class="input-group">
+                <input class="input--style-1" type="text" placeholder="Default event name" name="name1">
+              </div>
+              <div class="input-group">
+                <input class="input--style-1" type="text" name="college" placeholder="College name">
+              </div>
+              <div class="input-group">
+                <input class="input--style-1" type="text" name="email" placeholder="Enter your email-id">
+              </div>
+              <div class="input-group">
+                <input class="input--style-1" type="text" name="mobile" placeholder="Enter 10-digit mobile number">
+              </div>
+              <div class="d-flex justify-content-center">
+                <input class="about-btn col-lg-3" type="submit" name="Submit">
+              </div>
+            </form>
+          </div>
+        <!--/div-->
+      </div>
+    </section>
+  </main><!-- End #main -->
+{% endblock content %}

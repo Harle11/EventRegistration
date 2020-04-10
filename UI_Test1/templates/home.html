@@ -1,0 +1,1015 @@
+{% extends "layout.html" %}
+{% block navigation %}
+  <li class="menu-active"><a href="#intro">Home</a></li>
+  <li><a href="#about">About</a></li>
+  <li><a href="#flagship">Flagship Events</a></li>
+  <li><a href="#workshops">Workshops</a></li>
+  <li><a href="#gevents"> General Events</a></li> 
+  <li><a href="#schedule">Schedule</a></li>
+  <li><a href="#venue">Venue</a></li>         
+  <li><a href="#gallery">Gallery</a></li>
+  <li><a href="#sponsors">Sponsors</a></li>
+  <li><a href="#contact">Contact</a></li>
+{% endblock navigation %}
+{% block content %}
+  <!-- ======= Intro Section ======= -->
+  <section id="intro" style="width: 100%; height: 100vh; background: url({{ url_for('static', filename='img/wind-and-solar.jpg') }}) top center; background-size: cover; overflow: hidden; position: relative;">
+    <div class="intro-container wow fadeIn">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" height="200" width="150" style="align-items:center" alt="" title="">
+      <h1 class="mb-4 pb-0" style="color:#fff">PHASE<span>SHIFT</span></h1>
+      <p class="mb-4 pb-0">14-15 September, B.M.S. College of Engineering, Bangalore</p>
+      <a href="https://www.youtube.com/watch?v=9VV2rprycpQ" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
+      <a href="#about" class="about-btn scrollto">About The Event</a>
+    </div>
+  </section><!-- End Intro Section -->
+
+  <main id="main">
+
+    <!-- ======= About Section ======= -->
+    <section id="about">
+      <div class="col-lg-12">
+          <div class="container">
+              <div class="row">
+                  <div class="container">
+                      <div class="section-header">
+                          <h2 style="color: white">About The Event</h2>
+                      </div>
+                      <p style="color:#fff; text-align: justify;">PhaseShift is an annual tech symposium of BMS
+                          College Of
+                          Engineering and is one of the largest of its kind in South India.
+                          It encourages budding engineering students to exhibit their talents and demonstrate skills
+                          through competitions and workshops.
+                          It aims to coalesce ideas from industry in order to achieve high level of skill to help the
+                          students emerge as globally competent professionals.
+                          Participation of many industry experts and professionals creates a congenial atmosphere that
+                          knits learning and fun. By embracing technology, Phase Shift organises a plethora of events
+                          collaborated with industries that provides a neat paradigm to encourage technological
+                          advances
+                          through seminars, workshops, competitions and multidisciplinary events.
+                          By doing so, the sponsors get to influence people and work miracles. This not only helps to
+                          spread the ideology behind each event but also helps the sponsors get more publicity with
+                          our
+                          unique strategy for the same.
+                          They are assured of a huge benefit from the exposure to a large and diverse crowd that
+                          PhaseShift attracts</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </section>
+
+    <!-- ======= Flagship Section ======= -->
+    <section id="flagship" class="wow fadeInUp">
+      <div class="container">
+        <div class="section-header">
+          <h2>Flagship Events</h2>
+          <p>A random selection of the Flagship Events of Various Departments.</p>
+        </div>
+        <div class="row">
+          {% for event in eflagship %}
+            <div class="col-lg-4 col-md-6">
+              <div class="event">
+                <img src="{{ url_for('static', filename='img/speakers/2.jpg') }}" alt="Event 1" class="img-fluid">
+                <div class="details">
+                  <h3><a href="{{ url_for('registration', eventName=event.evalue) }}">{{ event.name }}</a></h3>
+                  <p>{{ event.dept }}</p>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="d-flex justify-content-center">
+          <a href="{{ url_for('flagship') }}" class="about-btn">View All Flagship Events</a>
+        </div>
+      </div>
+
+    </section><!-- End Flagship Section -->
+
+    <!--===== Workshop Section =====-->
+    <section id="workshops" class="section-with-bg wow fadeInUp">
+      <div class="container">
+        <div class="section-header">
+          <h2>Workshops</h2>
+          <p>A random selection of the Workshops of Various Departments.</p>
+        </div>
+        <div class="row">
+          {% for event in eworkshops %}
+            <div class="col-lg-4 col-md-6">
+              <div class="event">
+                <img src="{{ url_for('static', filename='img/speakers/1.jpg') }}" alt="Event 1" class="img-fluid">
+                <div class="details">
+                  <h3><a href="{{ url_for('registration', eventName=event.evalue) }}">{{ event.name }}</a></h3>
+                  <p>{{ event.dept }}</p>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="d-flex justify-content-center">
+          <a href="{{ url_for('workshops') }}" class="about-btn">View All Workshops</a>
+        </div>
+      </div>
+
+    </section><!-- End Workshops Section -->
+
+    <!-- ======= General Events Section ======= -->  
+    <section id="gevents" class="wow fadeInUp">
+      <div class="container">
+        <div class="section-header">
+          <h2>General Events</h2>
+          <p>A random selection of the General Events of Various Departments.</p>
+        </div>
+        <div class="row">
+          {% for event in events %}
+            <div class="col-lg-3 col-md-6">
+              <div class="event">
+                <div class="event-img">
+                  <img src="{{ url_for('static', filename='img/hotels/1.jpg') }}" alt="Event 1" class="img-fluid">
+                </div>
+                <h3><a href="{{ url_for('registration', eventName=event.evalue) }}">{{ event.name }}</a></h3>
+                <p>{{ event.etype }}</p>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="d-flex justify-content-center">
+          <a href="{{ url_for('all_events') }}" class="about-btn">View All Events</a>
+        </div>
+      </div>
+    </section><!-- End General Events Section -->
+     
+    <!-- ======= Schedule Section ======= -->
+    <section id="schedule" class="section-with-bg">
+      <div class="container wow fadeInUp">
+        <div class="section-header">
+          <h2>Event Schedule</h2>
+          <p>Here is our event schedule</p>
+        </div>
+
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" href="#day-1" role="tab" data-toggle="tab">Day 1</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#day-2" role="tab" data-toggle="tab">Day 2</a>
+          </li>
+        </ul>
+
+        <div class="tab-content row justify-content-center">
+
+          <!-- Schdule Day 1 -->
+          <div role="tabpanel" class="tab-pane fade show active" id="day-1">
+            <table class="table">
+              <thead style="background:#0000b3;color:#fff">
+                <tr>
+                  <th>Venue</th>
+                  <th>9am-10am</th>
+                  <th>10am-11am</th>
+                  <th>11am-12pm</th>
+                  <th>12pm-1pm</th>
+                  <th>1pm-1:30pm</th>
+                  <th>1:30pm-2pm</th>
+                  <th>2pm-3pm</th>
+                  <th>3pm-4pm</th>
+                  <th>4pm-4 30pm</th>
+                  <th>4:30pm-5pm</th>
+                  <th>5pm-6pm</th>
+                  <th>6pm-7pm</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="location"><b>Indoor Stadium</b> </td>
+                  <td colspan="2" class="event">Inauguration</td>
+                </tr>
+                <tr>
+                  <td class="location">BSN Hall</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="2" class="event1">Game Development Workshop</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="5" class="event2">Game Development Workshop</td>
+                </tr>
+                <tr>
+                  <td class="location">RK Hall</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="2" class="event">Bio-Biz</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="4" class="event1">Workshop on sustainability ideation for the corporate world by 3M India</td>
+                </tr>
+                <tr>
+                  <td class="location"> MV Hall</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="4" class="event2">Stabilized Blocks</td>
+                  <td colspan="4" class="event">Talk on Green Buildings</td>
+                </tr>
+                <tr>
+                  <td class="location">FDC Hall</td>
+                  <td colspan="4">&nbsp;</td>
+                  <td colspan="6" class="event1">Zeal</td>
+                </tr>
+                <tr>
+                  <td class="location">MESH Hall</td>
+                  <td colspan="3">&nbsp;</td>
+                  <td colspan="4" class="event2">Situation 2.0</td>
+                </tr>
+                <tr>
+                  <td class="location">Taylor Hall</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="8" class="event">Shipwrecked</td>
+                </tr>
+                <tr>
+                  <td class="location">CNC and Robotics Lab</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="8" class="event1">Automation and Robotics </td>
+                </tr>
+                <tr>
+                  <td class="location">CSE Seminar Hall</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="8" class="event2">UI/UX Workshop for Sustainability</td>
+                </tr>
+                <tr>
+                  <td class="location">CSE lab 1 &amp; 2 </td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="4" class="event">Code Storm</td>
+                  <td colspan="4" class="event1">Crypt Hunt</td>
+                </tr>
+                <tr>
+                  <td class="location">CSE lab 5 &amp; 6</td>
+                  <td colspan="3">&nbsp;</td>
+                  <td colspan="5" class="event2">Coder's Arena</td>
+                </tr>
+                <tr>
+                  <td class="location">Computer lab (EIE Dept)</td>
+                  <td colspan="6">&nbsp;</td>
+                  <td colspan="4" class="event">ASSETS UTILISATION USING IOT</td>
+                </tr>
+                <tr>
+                  <td class="location">Computer lab 2 (TCE Dept)</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="6" class="event1">BUILDING ENERGY EFFICIENT SMART HOMES</td>
+                </tr>
+                <tr>
+                  <td class="location">ISE Lab 1</td>
+                  <td colspan="6">&nbsp;</td>
+                  <td colspan="4" class="event2">GAME Of Codes v3.0</td>
+                </tr>
+                <tr>
+                  <td class="location">ISE Lab 2</td>
+                  <td colspan="4">&nbsp;</td>
+                  <td colspan="6" class="event">How To Build a Software Bot</td>
+                </tr>
+                <tr>
+                  <td class="location">Fluid Mechanics Lab</td>
+                  <td colspan="4">&nbsp;</td>
+                  <td colspan="3" class="event1">Cruise 2.0</td>
+                </tr>
+                <tr>
+                  <td class="location">Mech parking and GOPI wall</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="8" class="event2">Fusion Rider</td>
+                </tr>
+                <tr>
+                  <td class="location">AEC Lab-TCE Dept</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="6" class="event">DIGI-TRONICS</td>
+                </tr>
+                <tr>
+                  <td class="location">MCA Lab</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="4" class="event1">Sliders</td>
+                </tr>
+                <tr>
+                  <td class="location">Measurement Lab, PG Block 1st Floor</td>
+                  <td colspan="3">&nbsp;</td>
+                  <td colspan="8" class="event2">Make-A-Thon	</td>
+                </tr>
+                <tr>
+                  <td class="location">PG block CA4</td>
+                  <td colspan="6">&nbsp;</td>
+                  <td colspan="4" class="event">Stress your brain</td>
+                </tr>
+                <tr>
+                  <td class="location">CR 1 IEM dept</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="8" class="event1">LIGHTS OUT</td>
+                </tr>
+                <tr>
+                  <td class="location">CR 2 IEM dept</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="8" class="event2">Sacred Games</td>
+                </tr>
+                <tr>
+                  <td class="location">CR 7</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="5" class="event">WORKSHOP ON SOLAR PV AND DESIGN TECHNOLOGY</td>
+                </tr>
+                <tr>
+                  <td class="location">CAD Lab</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="8" class="event1">Workshop (RFLP)</td>
+                </tr>
+                <tr>
+                  <td class="location">ML 1 MECH BLOCK 2ND FLOOR</td>
+                  <td colspan="4">&nbsp;</td>
+                  <td colspan="4" class="event2">SUSTAINABLE ORATORY</td>
+                </tr>
+                <!--tr>
+                  <td class="location">ML Computer lab</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="8">Photovoltaic energy</td>
+                </tr-->
+                <tr>
+                  <td class="location">Medical Electronics Lab</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="6" class="event">Image Processing with Machine Learning</td>
+                </tr>
+                <tr>
+                  <td class="location">C301 and M.tech classroom</td>
+                  <td colspan="6">&nbsp;</td>
+                  <td colspan="4" class="event1">Paper Shark</td>
+                </tr>
+                <tr>
+                  <td class="location">C 303</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="2" class="event2">Of Chronos and Gaea</td>
+                  <td rowspan="2" colspan="6" class="event">Circuit Sculpture: The Battle of Bidding</td>
+                </tr>
+                <tr>
+                  <td class="location">Analog Electronics Lab</td>
+                </tr>
+                <tr>
+                  <td class="location">C304 &amp; C305</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="8" class="event1">Workshop on IOT and its applications</td>
+                </tr>
+                <tr>
+                  <td class="location">CR 306 and CR 307 &amp; M.Tech Classroom</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="3" class="event2">Inphinite Hunt</td>
+                  <td colspan="1">&nbsp;</td>
+                  <td colspan="4" class="event">Gridlocked</td>
+                </tr>
+                <tr>
+                  <td class="location">New Building 402</td>
+                  <td colspan="3">&nbsp;</td>
+                  <td colspan="3" class="event1">Code in the Dark</td>
+                </tr>
+                <tr>
+                  <td class="location">New Building 406</td>
+                  <td colspan="6">&nbsp;</td>
+                  <td colspan="4" class="event2">Technical Paper Writing Workshop</td>
+                </tr>
+                <tr>
+                  <td class="location">New Building 407</td>
+                  <td colspan="3">&nbsp;</td>
+                  <td colspan="4" class="event">Prose to Powerpoint</td>
+                </tr>
+                <tr>
+                  <td class="location">CR 501 &amp; 502</td>
+                  <td colspan="4">&nbsp;</td>
+                  <td colspan="6" class="event1">Capture The Flag</td>
+                </tr>
+                <tr>
+                  <td class="location">Classroom 606-TCE Dept</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="6" class="event2">MEGA MIND;</td>
+                </tr>
+                <tr>
+                  <td class="location">Classroom 607-TCE Dept</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="6" class="event">RASBERRY PI WORKSHOP</td>
+                </tr>
+                <tr>
+                  <td class="location">BT class room 1</td>
+                  <td colspan="6">&nbsp;</td>
+                  <td colspan="2" class="event1">Eco-Paradise</td>
+                </tr>
+                <tr>
+                  <td class="location">BT class room 2 and Environmental engg lab</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="3" class="event2">Hands-on workshop on Testing contaminants in samples</td>
+                </tr>
+                <tr>
+                  <td class="location">CR 3001</td>
+                  <td colspan="4">&nbsp;</td>
+                  <td colspan="6" class="event">Technolocution</td>
+                </tr>
+                <tr>
+                  <td class="location">CR 3002 &amp; ML 5001</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="4" class="event1">Do it Yourself!</td>
+                </tr>
+                <tr>
+                  <td class="location">ML 601, New Building</td>               
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="2" class="event2">Talking Tech</td>
+                  <td colspan="4" class="event">Techno Hunt</td>
+                </tr>
+                <tr>
+                  <td class="location">EEE 6001</td>
+                  <td colspan="3">&nbsp;</td>
+                  <td colspan="6" class="event1">Workshop on design of PV panels</td>
+                </tr>
+                <tr>
+                  <td class="location">PG Block EEE 6002 &amp; 6003</td>
+                  <td colspan="3">&nbsp;</td>
+                  <td colspan="7" class="event2">Tech junk</td>
+                </tr>
+                <tr>
+                  <td class="location">PG Block EEE 6005</td>
+                  <td colspan="3">&nbsp;</td>
+                  <td colspan="5" class="event">PSYCHIC'S SURVIVAL</td>
+                </tr>
+                <tr>
+                  <td class="location">PG Block EEE 6007</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td rowspan="2" colspan="4" class="event1">Pitch Perfect</td>
+                  <td colspan="2" class="event2">Energy In-quest-igation</td>
+                </tr>
+                <tr>
+                  <td class="location">PG Block EEE 6006</td>
+                </tr>
+                <tr>
+                  <td class="location">PG Block 7002</td>
+                  <td colspan="8">&nbsp;</td>
+                  <td colspan="3" class="event">Present the future</td>
+                </tr>
+                <tr>
+                  <td class="location">IT classroom 3</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="8" class="event1">Innoview</td>
+                </tr>
+                <tr>
+                  <td class="location">1st floor PG block (open space)</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="6" class="event2">Fast &amp; Furious</td>
+                </tr>
+                <tr>
+                  <td class="location">ECE dept. corridor, New Building 3rd floor</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="8" class="event">Fury Road V5</td>
+                </tr>
+                <tr>
+                  <td class="location">Marketing classroom PG block third floor</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="8" class="event1">CSR</td>
+                </tr>
+                <tr>
+                  <td class="location">MBA Classroom 1</td>
+                  <td colspan="4">&nbsp;</td>
+                  <td colspan="5" class="event2">Smart Rooms with ALEXA</td>
+                </tr>
+                <tr>
+                  <td class="location">CCP lab 6th floor, PG block</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="4" class="event">MATHWORKS WORKSHOP</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- End Schdule Day 1 -->
+
+          <!-- Schdule Day 2 -->
+          <div role="tabpanel" class="tab-pane fade" id="day-2">
+            <table class="table">
+              <thead style="background:#0000b3;color:#fff">
+                <tr>
+                  <th>Venue</th>
+                  <th>9am-9:30am</th>
+                  <th>9:30am-10am</th>
+                  <th>10am-10:30am</th>
+                  <th>10 30am-11am</th>
+                  <th>11am-12pm</th>
+                  <th>12pm-12:30pm</th>
+                  <th>12:30pm-1pm</th>
+                  <th>1pm-1:30pm</th>
+                  <th>1:30pm-2pm</th>
+                  <th>2pm-3pm</th>
+                  <th>3pm-4pm</th>
+                  <th>4pm-5pm</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="location">BSN hall</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="10" class="event">DataScience Workshop &amp; its Application in Energy and Sustainability</td>
+                </tr>
+                <tr>
+                  <td class="location">RK Hall</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="3" class="event1">JAM</td>
+                  <td colspan="4">&nbsp;</td>
+                  <td colspan="2" class="event2">Potpourri</td>
+                </tr>
+                <tr>
+                  <td class="location">AUDI 1</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="7" class="event">General Quiz</td>
+                </tr>
+                <tr>
+                  <td class="location">AUDI 2</td>
+                  <td colspan="4">&nbsp;</td>
+                  <td colspan="6" class="event1">A week to peak</td>
+                </tr>
+                <tr>
+                  <td class="location">CSE Seminar Hall</td>
+                  <td colspan="12" class="event2">Rivirrunes</td>
+                </tr>
+                <tr>
+                  <td class="location">BT Classroom-1 and CMB Lab</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="3" class="event">Maze-Runner</td>
+                </tr>
+                <tr>
+                  <td class="location">BIN lab BT department</td>
+                  <td colspan="5">&nbsp;</td>
+                  <td colspan="3" class="event1">Zero Hour</td>
+                </tr>
+                <tr>
+                  <td class="location">CAD LAB, IEM</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="9" class="event2">DELMIA Process Planning</td>
+                </tr>
+                <tr>
+                  <td class="location">CR-1 IEM dept</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="10" class="event">Lights Out</td>
+                </tr>
+                <tr>
+                  <td class="location">CR-2 IEM Dept</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="9" class="event1">Sacred Games</td>
+                </tr>
+                <tr>
+                  <td class="location">CSE lab 1 &amp; 2</td>
+                  <td colspan="6" class="event2">Sustainable Software Design for Acoustic Machines</td>
+                </tr>
+                <tr>
+                  <td class="location">CSE Lab 3</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="3" class="event">Ctrl + N</td>
+                  <td colspan="4">&nbsp;</td>
+                  <td colspan="2" rowspan="2" class="event1">Turing's Race</td>
+                </tr>
+                <tr>
+                  <td class="location">CSE Lab 5</td>
+                  <td rowspan="2" colspan="5" class="event2">R3VERSE CODING</td>
+                </tr>
+                <tr>
+                  <td class="location">CSE Lab 6</td>
+                </tr>
+                <tr>
+                  <td class="location">CR-501, 5th floor, New building</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="5" class="event">Logomania</td>
+                </tr>
+                <tr>
+                  <td class="location">ISE Lab 1</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="3" class="event1">De-Energize the Minibeasts</td>
+                </tr>
+                <tr>
+                  <td class="location">ISE Lab 2</td>
+                  <td colspan="12" class="event2">Hands-on Workshop on Machine Learning</td>
+                </tr>
+                <tr>
+                  <td class="location">EIE Department Computer Lab</td>
+                  <td colspan="12" class="event">Smart Rooms with ALEXA</td>
+                </tr>
+                <tr>
+                  <td class="location">Mech parking and GOPI wall</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="9" class="event1">Fusion rider</td>
+                </tr>
+                <tr>
+                  <td class="location">ERP lab IEM dept</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="9" class="event2">Zeal Exchange</td>
+                </tr>
+                <tr>
+                  <td class="location">Taylor hall, IEM</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="9" class="event">Marathon Monkeys</td>
+                </tr>
+                <tr>
+                  <td class="location">PG Block CR 3001</td>
+                  <td colspan="1">&nbsp;</td>
+                  <td colspan="7" class="event1">Decision Dilemma</td>
+                </tr>
+                <tr>
+                  <td class="location">PG Block CR 3002 &amp; CA1</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="3" class="event2">Treasure Odyssey</td>
+                </tr>
+                <tr>
+                  <td class="location">Library Lawn &amp; 4001</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="7" class="event">Cansat-Satellite in a soda can</td>
+                </tr>
+                <tr>
+                  <td class="location">MBA Classroom 1</td>
+                  <td colspan="4">&nbsp;</td>
+                  <td colspan="7" class="event1">BEST MANAGER</td>
+                </tr>
+                <tr>
+                  <td class="location">MBA Classroom 2</td>
+                  <td colspan="4">&nbsp;</td>
+                  <td colspan="7" class="event2">PRODUCTS LAUNCH</td>
+                </tr>
+                <tr>
+                  <td class="location">Marketing classroom, PG block</td>
+                  <td colspan="4">&nbsp;</td>
+                  <td colspan="3" class="event">CSR</td>
+                </tr>
+                <tr>
+                  <td class="location">MCA Lab</td>
+                  <td colspan="5" class="event1">Dazzle Coding</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="5" class="event2">Fishing Expedition</td>
+                </tr>
+                <tr>
+                  <td class="location">FDC Hall</td>
+                  <td colspan="4">&nbsp;</td>
+                  <td colspan="7" class="event">Mimic Tarriance</td>
+                </tr>
+                <tr>
+                  <td class="location">MESH Hall</td>
+                  <td colspan="4">&nbsp;</td>
+                  <td colspan="5" class="event1">Situation 2.0</td>
+                </tr>
+                <tr>
+                  <td class="location">Turbo Lab</td>
+                  <td colspan="1">&nbsp;</td>
+                  <td colspan="5" class="event2">Mech-Assemble</td>
+                </tr>
+                <tr>
+                  <td class="location">FHT Lab</td>
+                  <td colspan="8">&nbsp;</td>
+                  <td colspan="2" class="event">Build It</td>
+                </tr>
+                <tr>
+                  <td class="location">MV Hall</td>
+                  <td colspan="4">&nbsp;</td>
+                  <td colspan="3" class="event1">Flash your acoustic energy</td>
+                </tr>
+                <tr>
+                  <td class="location">Measurement Lab, PG Block 1st Floor</td>
+                  <td colspan="5" class="event2">Make-A-Thon</td>
+                </tr>
+                <tr>
+                  <td class="location">ML 6001</td>
+                  <td colspan="1">&nbsp;</td>
+                  <td colspan="5" class="event">Sustain your Ecosystem</td>
+                </tr>
+                <tr>
+                  <td class="location">ML 6002, new building</td>
+                  <td colspan="9">&nbsp;</td>
+                  <td colspan="3" class="event1">Farrago</td>
+                </tr>
+                <tr>
+                  <td class="location">ML Computer lab</td>
+                  <td colspan="4">&nbsp;</td>
+                  <td colspan="8" class="event2">Photovoltaic Energy</td>
+                </tr>
+                <tr>
+                  <td class="location">ECE dept. Seminar Hall</td>
+                  <td colspan="12" class="event">Fury Road V5</td>
+                </tr>
+                <tr>
+                  <td class="location">C301</td>
+                  <td rowspan="2" colspan="12" class="event1">Harvesting solar energy workshop</td>
+                </tr>
+                <tr>
+                  <td class="location">MC LAB, ECE</td>
+                </tr>
+                <tr>
+                  <td class="location">C302 &amp; M.Tech Classroom</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="5" class="event2">Math Mania-A collector's Quest</td>
+                </tr>
+                <tr>
+                  <td class="location">EC 303 &amp; Digital Electronics Lab</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="9" class="event">The Decryptor</td>
+                </tr>
+                <tr>
+                  <td class="location">New Building EC 304</td>
+                  <td colspan="7">&nbsp;</td>
+                  <td colspan="5" class="event1">AI Challenge</td>
+                </tr>
+                <tr>
+                  <td class="location">New Building EC 305</td>
+                  <td colspan="7">&nbsp;</td>
+                  <td colspan="4" class="event2">Make-a-Mark</td>
+                </tr>
+                <tr>
+                  <td class="location">New Building 402</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="3" class="event">Eco Quest</td>
+                </tr>
+                <tr>
+                  <td class="location">New Building 403</td>
+                  <td colspan="7">&nbsp;</td>
+                  <td colspan="4" class="event1">Energy MP4</td>
+                </tr>
+                <tr>
+                  <td class="location">New Building 404 &amp; 405</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="3" class="event2">Review Paper Presentation</td>
+                </tr>
+                <tr>
+                  <td class="location">CR 606</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="9" class="event">Circuit Hunt</td>
+                </tr>
+                <tr>
+                  <td class="location">CR 607</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="9" class="event1">Raspberry pi Workshop</td>
+                </tr>
+                <tr>
+                  <td class="location">AMC Lab, TCE Dept</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="9" class="event2">E Waste for Sustainability</td>
+                </tr>
+                <tr>
+                  <td class="location">Cement Pathway near the parking exit connecting to main canteen</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="5" class="event">Rocketeers Ready?</td>
+                </tr>
+                <tr>
+                  <td class="location">PG Block 1st Floor (Near Mirror)</td>
+                  <td colspan="5" class="event1">Poster Presentation</td>
+                </tr>
+                <tr>
+                  <td class="location">EE6001</td>
+                  <td colspan="7">&nbsp;</td>
+                  <td colspan="5" class="event2">EV Tech Talk</td>
+                </tr>
+                <tr>
+                  <td class="location">Analog Electronics Lab</td>
+                  <td colspan="4">&nbsp;</td>
+                  <td colspan="6" class="event">Are you a Arduino ninja?</td>
+                </tr>
+                <tr>
+                  <td class="location">Power Electronics lab &amp; EE6005</td>
+                  <td colspan="5">&nbsp;</td>
+                  <td colspan="6" class="event1">Plan P</td>
+                </tr>
+                <tr>
+                  <td class="location">EE6006</td>
+                  <td colspan="2">&nbsp;</td>
+                  <td colspan="5" class="event2">Mind Craft</td>
+                  <td colspan="4" class="event">Pitch Perfect</td>
+                </tr>
+                <tr>
+                  <td class="location">7002</td>
+                  <td colspan="3">&nbsp;</td>
+                  <td colspan="5" class="event1">BAMBOOLICIOUS</td>
+                </tr>
+                <tr>
+                  <td class="location">IT classroom 1, EIE</td>
+                  <td colspan="2">&nbsp;</td>		
+                  <td colspan="8" class="event2">DEXTER</td>
+                  <td colspan="2">&nbsp;</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    </section><!-- End Schedule Section -->
+
+    <!-- ======= Venue Section ======= -->
+    <section id="venue" class="wow fadeInUp">
+
+    <div class="container-fluid">
+
+      <div class="section-header">
+        <h2>Event Venue</h2>
+        <p>Event venue location info and gallery</p>
+      </div>
+
+      <div class="row no-gutters">
+        <div class="col-lg-6 venue-map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15553.925973780291!2d77.5655258!3d12.9410122!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x5f4adbdbab8bd80f!2sBMS%20College%20of%20Engineering!5e0!3m2!1sen!2sin!4v1585216388842!5m2!1sen!2sin" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+          
+        </div>
+
+        <div class="col-lg-6 venue-info">
+          <div class="row justify-content-center">
+            <div class="col-11 col-lg-8">
+              <h3>BMS College of Engineering</h3>
+              <p>Write something about the college here.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="container-fluid venue-gallery-container">
+      <div class="row no-gutters">
+
+        <div class="col-lg-3 col-md-4">
+          <div class="venue-gallery">
+            <a href="{{ url_for('static', filename='img/venue-gallery/1.jpg') }}" class="venobox" data-gall="venue-gallery">
+              <img src="{{ url_for('static', filename='img/venue-gallery/1.jpg') }}" alt="" class="img-fluid">
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4">
+          <div class="venue-gallery">
+            <a href="{{ url_for('static', filename='img/venue-gallery/2.jpg') }}" class="venobox" data-gall="venue-gallery">
+              <img src="{{ url_for('static', filename='img/venue-gallery/2.jpg') }}" alt="" class="img-fluid">
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4">
+          <div class="venue-gallery">
+            <a href="{{ url_for('static', filename='img/venue-gallery/3.jpg') }}" class="venobox" data-gall="venue-gallery">
+              <img src="{{ url_for('static', filename='img/venue-gallery/3.jpg') }}" alt="" class="img-fluid">
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4">
+          <div class="venue-gallery">
+            <a href="{{ url_for('static', filename='img/venue-gallery/4.jpg') }}" class="venobox" data-gall="venue-gallery">
+              <img src="{{ url_for('static', filename='img/venue-gallery/4.jpg') }}" alt="" class="img-fluid">
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4">
+          <div class="venue-gallery">
+            <a href="{{ url_for('static', filename='img/venue-gallery/5.jpg') }}" class="venobox" data-gall="venue-gallery">
+              <img src="{{ url_for('static', filename='img/venue-gallery/5.jpg') }}" alt="" class="img-fluid">
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4">
+          <div class="venue-gallery">
+            <a href="{{ url_for('static', filename='img/venue-gallery/6.jpg') }}" class="venobox" data-gall="venue-gallery">
+              <img src="{{ url_for('static', filename='img/venue-gallery/6.jpg') }}" alt="" class="img-fluid">
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4">
+          <div class="venue-gallery">
+            <a href="{{ url_for('static', filename='img/venue-gallery/7.jpg') }}" class="venobox" data-gall="venue-gallery">
+              <img src="{{ url_for('static', filename='img/venue-gallery/7.jpg') }}" alt="" class="img-fluid">
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4">
+          <div class="venue-gallery">
+            <a href="{{ url_for('static', filename='img/venue-gallery/8.jpg') }}" class="venobox" data-gall="venue-gallery">
+              <img src="{{ url_for('static', filename='img/venue-gallery/8.jpg') }}" alt="" class="img-fluid">
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    </section><!-- End Venue Section -->
+
+    <!-- ======= Gallery Section ======= -->
+    <section id="gallery" class="section-with-bg wow fadeInUp">
+
+      <div class="container">
+        <div class="section-header">
+          <h2>Gallery</h2>
+          <p>Check our gallery from the recent events</p>
+        </div>
+      </div>
+
+      <div class="owl-carousel gallery-carousel">
+        <a href="{{ url_for('static', filename='img/gallery/1.jpg') }}" class="venobox" data-gall="gallery-carousel"><img src="{{ url_for('static', filename='img/gallery/1.jpg') }}" alt=""></a>
+        <a href="{{ url_for('static', filename='img/gallery/2.jpg') }}" class="venobox" data-gall="gallery-carousel"><img src="{{ url_for('static', filename='img/gallery/2.jpg') }}" alt=""></a>
+        <a href="{{ url_for('static', filename='img/gallery/3.jpg') }}" class="venobox" data-gall="gallery-carousel"><img src="{{ url_for('static', filename='img/gallery/3.jpg') }}" alt=""></a>
+        <a href="{{ url_for('static', filename='img/gallery/4.jpg') }}" class="venobox" data-gall="gallery-carousel"><img src="{{ url_for('static', filename='img/gallery/4.jpg') }}" alt=""></a>
+        <a href="{{ url_for('static', filename='img/gallery/5.jpg') }}" class="venobox" data-gall="gallery-carousel"><img src="{{ url_for('static', filename='img/gallery/5.jpg') }}" alt=""></a>
+        <a href="{{ url_for('static', filename='img/gallery/6.jpg') }}" class="venobox" data-gall="gallery-carousel"><img src="{{ url_for('static', filename='img/gallery/6.jpg') }}" alt=""></a>
+        <a href="{{ url_for('static', filename='img/gallery/7.jpg') }}" class="venobox" data-gall="gallery-carousel"><img src="{{ url_for('static', filename='img/gallery/7.jpg') }}" alt=""></a>
+        <a href="{{ url_for('static', filename='img/gallery/8.jpg') }}" class="venobox" data-gall="gallery-carousel"><img src="{{ url_for('static', filename='img/gallery/8.jpg') }}" alt=""></a>
+      </div>
+
+    </section><!-- End Gallery Section -->
+
+    <!-- ======= Sponsors Section ======= -->
+    <section id="sponsors" class="wow fadeInUp">
+
+      <div class="container">
+        <div class="section-header">
+         <br><br> <h2>Sponsors</h2>
+        </div>
+
+        <div class="row no-gutters sponsors-wrap clearfix">
+
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="sponsor-logo">
+              <img src="{{ url_for('static', filename='img/sponsors/alphatech.jpg') }}" class="img-fluid" alt="">
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="sponsor-logo">
+              <img src="{{ url_for('static', filename='img/sponsors/bookanto.jpg') }}" class="img-fluid" alt="">
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="sponsor-logo">
+              <img src="{{ url_for('static', filename='img/sponsors/shruth&smith.jpg') }}" class="img-fluid" alt="">
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="sponsor-logo">
+              <img src="{{ url_for('static', filename='img/sponsors/kmflogo.jpg') }}" class="img-fluid" alt="">
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="sponsor-logo">
+             <!-- <img src="" class="img-fluid" alt="">-->
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="sponsor-logo">
+              <img src="{{ url_for('static', filename='img/sponsors/lic.jpg') }}" class="img-fluid" alt="">
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="sponsor-logo">
+              <img src="{{ url_for('static', filename='img/sponsors/nkevents.jpg') }}" class="img-fluid" alt="">
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="sponsor-logo">
+              <!--<img src="" class="img-fluid" alt="">-->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- End Sponsors Section -->
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="section-with-bg wow fadeInUp">
+
+      <div class="container">
+
+        <div class="section-header">
+          <h2>Contact Us</h2>
+          <p>Nihil officia ut sint molestiae tenetur.</p>
+        </div>
+
+        <div class="row contact-info">
+
+          <div class="col-md-4">
+            <div class="contact-address">
+              <i class="ion-ios-location-outline"></i>
+            <!--  <img src="assets/img/c1.jpg">-->
+              <address>C1</address>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="contact-phone">
+              <i class="ion-ios-telephone-outline"></i>
+              <!--<img src="assets/img/c2.jpg">-->
+              <address>C2</address>
+              
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="contact-email">
+              <i class="ion-ios-email-outline"></i>
+             <!-- <img src="assets/img/c3.jpg">-->
+              <address>C3</address>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+{% endblock content %}
