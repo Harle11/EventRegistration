@@ -880,6 +880,15 @@ body.mobile-nav-active #mobile-nav-toggle {
   color: #fff;
 }
 
+#gevents .filter-button .about-btn {
+  margin: 1px 20px;
+  padding: 8px 32px;
+}
+
+#gevents .filter-label {
+  margin: 0px 20px;
+}
+
 #gevents .nav-tabs {
   text-align: center;
   margin: auto;
@@ -1261,8 +1270,12 @@ body.mobile-nav-active #mobile-nav-toggle {
   color: #ddd;
 }
 
-#event-details .regform {
-  padding: 40px 0px;
+/*--------------------------------------------------------------
+# Event Details Page
+--------------------------------------------------------------*/
+
+#event-details {
+  padding: 0px 0px 20px 0px;
 }
 
 #event-details p {
@@ -1270,7 +1283,19 @@ body.mobile-nav-active #mobile-nav-toggle {
   padding: 5px;
 } 
 
-#event-details .about-btn {
+#regform {
+  padding: 40px 0px;
+}
+
+#regform label {
+  font-weight: 600;
+}
+
+#regform textarea {
+  resize: none;
+}
+
+#regform .about-btn {
   font-family: "Raleway", sans-serif;
   font-weight: 500;
   font-size: 14px;
@@ -1287,7 +1312,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   border: 2px solid #00004d;
 }
 
-#event-details .about-btn:hover {
+#regform .about-btn:hover {
   background: #00004d;
   color: #fff;
 }
@@ -1377,122 +1402,3 @@ body.mobile-nav-active #mobile-nav-toggle {
     margin-top: 10px;
   }
 }
-
-
-/*************registration form*******/
-
-/* ==========================================================================
-   #FONT
-   ========================================================================== */
-   .font-robo {
-    font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
-  }
-  
-  /* ==========================================================================
-     #GRID
-     ========================================================================== */
-  .row {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-flex-wrap: wrap;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-  }
-  
-  .row-space {
-    -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
-    -moz-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-  }
-  
-  .col-2 {
-    width: -webkit-calc((100% - 60px) / 2);
-    width: -moz-calc((100% - 60px) / 2);
-    width: calc((100% - 60px) / 2);
-  }
-  
-  @media (max-width: 767px) {
-    .col-2 {
-      width: 100%;
-    }
-  }
-  
-    /* ==========================================================================
-     #RESET
-     ========================================================================== */
-  /**
-   * A very simple reset that sits on top of Normalize.css.
-   */
-
-
-   /* ==========================================================================
-     #FORM
-     ========================================================================== */
-  input {
-    outline: none;
-    margin: 0;
-    border: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-    width: 100%;
-    font-size: 14px;
-    font-family: inherit;
-  }
-  
-  .input-group {
-    position: relative;
-    margin-bottom: 30px;
-    border-bottom: 2px solid #ccc;
-  }
-  
-  .input-icon {
-    position: absolute;
-    font-size: 18px;
-    color: #ccc;
-    right: 8px;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -moz-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    -o-transform: translateY(-50%);
-    transform: translateY(-50%);
-    cursor: pointer;
-  }
-  
-  .input--style-1 {
-    padding: 9px 0;
-    color: #666;
-  }
-  
-  .input--style-1::-webkit-input-placeholder {
-    /* WebKit, Blink, Edge */
-    color: #555;
-  }
-  
-  .input--style-1:-moz-placeholder {
-    /* Mozilla Firefox 4 to 18 */
-    color: #555;
-    opacity: 1;
-  }
-  
-  .input--style-1::-moz-placeholder {
-    /* Mozilla Firefox 19+ */
-    color: #555;
-    opacity: 1;
-  }
-  
-  .input--style-1:-ms-input-placeholder {
-    /* Internet Explorer 10-11 */
-    color: #555;
-  }
-  
-  .input--style-1:-ms-input-placeholder {
-    /* Microsoft Edge */
-    color: #555;
-  }

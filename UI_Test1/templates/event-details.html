@@ -4,56 +4,221 @@
 {% endblock %}
 {% block navigation %}
   <li><a href="{{ url_for('home')}}">Home</a></li>
-  <li><a href="{{ url_for('all_events')}}"> General Events</a></li>
+  <li><a href="{{ url_for('all_events', choice='All')}}"> General Events</a></li>
 {% endblock navigation %}
 {% block content %}
   <main id="main" class="main-page">
-    <!-- ======= Event Details Sectionn ======= -->
+    <!-- ======= Event Details Section ======= -->
     <section id="event-details" class="wow fadeIn">
       <div class="container">
         <div class="section-header">
-          <h2>Event Details</h2>
-          <p>Description of the event.</p>
+          <br><br><br>
+          {% if isworkshop %}
+            <h2>Workshop Details</h2>
+            <p>Description of the Workshop.</p>
+          {% else %}
+            <h2>Event Details</h2>
+            <p>Description of the event.</p>
+          {% endif %}
         </div>
         <div class="col-md-12">
           <div class="details">
-            <h2>{{ event.name }}</h2>
-            <p><b>Event type: </b>{{ event.etype }}</p>
-            <p><b>Description: </b>Technical oriented treasure hunt where each team acts upon successive clues and are eventually directed to a prize.</p>
-            <p><b>Registration fee: </b>Rs. 200/team.</p>
-            <p><b>Team size: </b>Maximum of 3 members.</p>
-            <p><b>Prize: </b>Rs.4000 for winners & Rs.2000 for runner-up</p>
-            <p><b>Venue: </b>MCA LAB, P.G Block</p>
+            {% if isworkshop %}
+              <p style="font-size:x-large; color:#00004d"><b>Workshop Name: </b>{{ event.name }}</p>
+              <p><b>Description: </b>{{ event.desc }}</p>
+              <p><b>Registration fee: </b>Rs. {{ event.fee }}.</p>
+              <p><b>Date: </b>{{ event.date }}</p>
+              <p><b>Time: </b>{{ event.time }}</p>
+              <p><b>Venue: </b>{{ event.venue }}</p>
+              <p><b>Coordinators: </b>
+                <ol>
+                  {% for i in range(0,len,2) %}
+                    <li>{{ cords[i] }} - {{ cords[i+1] }}</li>
+                  {% endfor %}
+                </ol>
+              </p>
+            {% else %}
+              <p style="font-size:x-large; color:#00004d"><b>Event Name: </b>{{ event.name }}</p>
+              <p><b>Event type: </b>{{ event.etype }}</p>
+              <p><b>Description: </b>{{ event.desc }}</p>
+              {% if event.team_size > 1 %}
+                <p><b>Registration fee: </b>Rs. {{ event.fee }}/team.</p>
+                <p><b>Team size: </b>Maximum of {{ event.team_size }} members.</p>
+              {% else %}
+                <p><b>Registration fee: </b>Rs. {{ event.fee }}.</p>
+                <p><b>Team size: </b>Individual.</p>
+              {% endif %}
+              <p><b>Prize: </b>{{ event.prize }}</p>
+              <p><b>Date: </b>{{ event.date }}</p>
+              <p><b>Time: </b>{{ event.time }}</p>
+              <p><b>Venue: </b>{{ event.venue }}</p>
+              <p><b>Coordinators: </b>
+                <ol>
+                  {% for i in range(0,len,2) %}
+                    <li>{{ cords[i] }} - {{ cords[i+1] }}</li>
+                  {% endfor %}
+                </ol>
+              </p>
+            {% endif %}
           </div>
         </div>
       </div>
+    </section><!-- End Event Details -->
 
-      <div class="container regform">
-        <!--div class="row justify-content-md-center"-->
+    <!-- ======= Event Registration Section ======= -->
+    <section id='regform' class="wow fadeInUp" style="background-color: #f6f7fd">
+      <div class="container">
+        <div class="section-header">
+          {% if isworkshop %}
+            <h2>Workshop Registration Form</h2>
+          {% else %}
+            <h2>{{ event.name }} Registration Form</h2>
+          {% endif %}
+        </div>
+        <div class="d-flex justify-content-center">
           <div class="col-md-12">
-            <h2 class="title">Registration Form</h2>
-            <form method="POST">
-              <div class="input-group">
-                <input  type="text" placeholder="Name" name="name" size="50">
-              </div>
-              <div class="input-group">
-                <input class="input--style-1" type="text" placeholder="Default event name" name="name1">
-              </div>
-              <div class="input-group">
-                <input class="input--style-1" type="text" name="college" placeholder="College name">
-              </div>
-              <div class="input-group">
-                <input class="input--style-1" type="text" name="email" placeholder="Enter your email-id">
-              </div>
-              <div class="input-group">
-                <input class="input--style-1" type="text" name="mobile" placeholder="Enter 10-digit mobile number">
-              </div>
-              <div class="d-flex justify-content-center">
-                <input class="about-btn col-lg-3" type="submit" name="Submit">
+            <form method="POST" action="">
+              {{ form.hidden_tag() }}
+              <fieldset class="form-group">
+                <div class="form-group row"> <!-- Event Name -->
+                  {{ form.eventName.label(class="col-sm-2 col-form-label") }}
+                  <div class="col-sm-8">
+                    {{ form.eventName(class="form-control-plaintext", value=event.name, readonly=True) }}
+                  </div>
+                </div>
+                <div class="form-group row"> <!-- Name and USN -->
+                  {% if teamSize=='1' %}
+                    <label class="col-sm-2 col-form-label">Participant</label>
+                    <div class="col-sm-4"> <!-- Solo Full Name -->
+                      {% if form.fullname.errors %}
+                        {{ form.fullname(class="form-control is-invalid", placeholder="Full Name", rows="1") }}
+                        <div class="invalid-feedback">
+                          {% for error in form.fullname.errors %}
+                            <span>{{ error }}</span>
+                          {% endfor %}
+                        </div>
+                      {% else %}
+                        {{ form.fullname(class="form-control", placeholder="Full Name", rows="1") }}
+                      {% endif %}
+                    </div>
+                    <div class="col-sm-4"> <!-- Solo USN -->
+                      {% if form.usn.errors %}
+                        {{ form.usn(class="form-control is-invalid", placeholder="USN", rows="1") }}
+                        <div class="invalid-feedback">
+                          {% for error in form.usn.errors %}
+                            <span>{{ error }}</span>
+                          {% endfor %}
+                        </div>
+                      {% else %}
+                        {{ form.usn(class="form-control", placeholder="USN", rows="1") }}
+                      {% endif %}
+                    </div>
+                  {% elif teamSize=='2' %}
+                    <label class="col-sm-2 col-form-label">Participants</label>
+                    <div class="col-sm-4"> <!-- Duo Full Name -->
+                      {% if form.fullname.errors %}
+                        {{ form.fullname(class="form-control is-invalid", placeholder="Full Name of both participants", rows="2") }}
+                        <div class="invalid-feedback">
+                          {% for error in form.fullname.errors %}
+                            <span>{{ error }}</span>
+                          {% endfor %}
+                        </div>
+                      {% else %}
+                        {{ form.fullname(class="form-control", placeholder="Full Name of both participants", rows="2") }}
+                      {% endif %}
+                    </div>
+                    <div class="col-sm-4"> <!-- Duo USN -->
+                      {% if form.usn.errors %}
+                        {{ form.usn(class="form-control is-invalid", placeholder="USN of both participants", rows="2") }}
+                        <div class="invalid-feedback">
+                          {% for error in form.usn.errors %}
+                            <span>{{ error }}</span>
+                          {% endfor %}
+                        </div>
+                      {% else %}
+                        {{ form.usn(class="form-control", placeholder="USN of both participants", rows="2") }}
+                      {% endif %}
+                    </div>
+                  {% else %}
+                    <label class="col-sm-2 col-form-label">All Participants</label>
+                    <div class="col-sm-4"> <!-- Many Full Name -->
+                      {% if form.fullname.errors %}
+                        {{ form.fullname(class="form-control is-invalid", placeholder="Full Name of all "+teamSize+" participants", rows=teamSize) }}
+                        <div class="invalid-feedback">
+                          {% for error in form.fullname.errors %}
+                            <span>{{ error }}</span>
+                          {% endfor %}
+                        </div>
+                      {% else %}
+                        {{ form.fullname(class="form-control", placeholder="Full Name of all "+teamSize+" participants", rows=teamSize) }}
+                      {% endif %}
+                    </div>
+                    <div class="col-sm-4"> <!-- Many USN -->
+                      {% if form.usn.errors %}
+                        {{ form.usn(class="form-control is-invalid", placeholder="USN of all "+teamSize+" participants", rows=teamSize) }}
+                        <div class="invalid-feedback">
+                          {% for error in form.usn.errors %}
+                            <span>{{ error }}</span>
+                          {% endfor %}
+                        </div>
+                      {% else %}
+                        {{ form.usn(class="form-control", placeholder="USN of all "+teamSize+" participants", rows=teamSize) }}
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="form-group row"> <!-- College Name-->
+                  {{ form.college.label(class="col-sm-2 col-form-label") }}
+                  <div class="col-sm-8">
+                    {% if form.college.errors %}
+                      {{ form.college(class="form-control is-invalid") }}
+                      <div class="invalid-feedback">
+                        {% for error in form.college.errors %}
+                          <span>{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                    {% else %}
+                      {{ form.college(class="form-control") }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group row"> <!-- Email ID -->
+                  {{ form.email.label(class="col-sm-2 col-form-label") }}
+                  <div class="col-sm-8">
+                    {% if form.email.errors %}
+                      {{ form.email(class="form-control is-invalid") }}
+                      <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                          <span>{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                    {% else %}
+                      {{ form.email(class="form-control") }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group row"> <!-- Phone Number -->
+                  {{ form.phno.label(class="col-sm-2 col-form-label") }}
+                  <div class="col-sm-8">
+                    {% if form.phno.errors %}
+                      {{ form.phno(class="form-control is-invalid") }}
+                      <div class="invalid-feedback">
+                        {% for error in form.phno.errors %}
+                          <span>{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                    {% else %}
+                      {{ form.phno(class="form-control") }}
+                    {% endif %}
+                  </div>
+                </div>
+              </fieldset>
+              <div class="d-flex justify-content-center"> <!-- Submit Button -->
+                {{ form.submit(class="about-btn") }}
               </div>
             </form>
           </div>
-        <!--/div-->
+        </div>
       </div>
     </section>
   </main><!-- End #main -->
