@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block headerclass %}
+  style="background: #99b3ff;height: 70px;padding: 15px 0"
+{% endblock %}
+{% block content %}
+	<section id="login">
+		<div class="bg">
+			<div class="wrap-login">
+				<div class="login-pic js-tilt" data-tilt>
+					<img src="{{ url_for('static', filename='img/favicon.jpg') }}" height="250" width="200" alt="IMG">
+				</div>
+				<form class="login-form" method="POST" action="">
+					{{ form.hidden_tag() }}
+					<span class="title">Organizer Login</span>
+					{% with messages = get_flashed_messages(with_categories=True) %}
+							{% if messages %}
+								{% for category, message in messages %}
+								<div class="alert alert-{{ category }}">
+									{{ message }}<br>
+								</div>
+								{% endfor %}
+							{% endif %}
+						{% endwith %}
+					<div class="wrap-input">
+						{{ form.usn(class="input", placeholder="USN") }}
+						<span class="focus-input"></span>
+						<span class="symbol-input">
+							<i class="fa fa-id-card" aria-hidden="true"></i>
+						</span>
+					</div>
+					<div class="wrap-input">
+						{{ form.password(class="input", placeholder="Password", type="password") }}
+						<span class="focus-input"></span>
+						<span class="symbol-input">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+					</div>
+					<div class="d-flex justify-content-center">
+						<div>
+							{{ form.remember(class="form-check-input") }}
+							{{ form.remember.label(class="form-check-label")}}
+						</div>
+					</div>
+					<div class="d-flex justify-content-center">
+						{{ form.submit(class="login-btn") }}
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+	<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/tilt.jquery.min.js') }}"></script>
+	<script >
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
+{% endblock content %}

@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+{% block headerclass %}
+  style="background: #99b3ff;height: 70px;padding: 15px 0"
+{% endblock %}
+{% block homeicon %}
+  <div id="logo" class="pull-left">
+    <a href="{{ url_for('admin_home', filters='None') }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="" title="Phase Shift Home"></a>
+{% endblock homeicon %}
+{% block navigation %}
+  {% if usn1 != '' %}
+    <li class="menu-active"><a href="#adduser">Modify User</a></li>
+    <li><a href="{{ url_for('admin_add_user', usnx='Add-User') }}">Add User</a></li>
+  {% else %}
+    <li class="menu-active"><a href="#adduser">Add User</a></li>
+  {% endif %}
+  <li><a href="{{ url_for('admin_home', filters='None') }}">View Users and Registrations</a></li>
+  <li><a href="{{ url_for('logout') }}">Logout</a></li>
+{% endblock navigation %}
+{% block content %}
+  <main id="main">
+    <!-- ======= Add User section ======= -->
+    <section id="adduser" class="wow fadeIn">
+      <div class="container">
+        <div class="section-header">
+          <br><br><br>
+          {% if usn1 == '' %}
+            <h2>New Users Form</h2>
+          {% else %}
+            <h2>Modify User Form</h2>
+          {% endif %}
+          {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+              {% for category, message in messages %}
+              <div class="alert alert-{{ category }}">
+                {{ message }}<br>
+              </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </div>
+        <div class="d-flex justify-content-center">
+          <div class="col-md-12">
+            <form method="POST" action="">
+              {{ form.hidden_tag() }}
+              <fieldset>
+                <div class="form-group row d-flex justify-content-center"> <!-- USN -->
+                  {{ form.usn.label(class="col-sm-2 col-form-label") }}
+                  <div class="col-sm-8">
+                    {% if form.usn.errors %}
+                      {{ form.usn(class="form-control is-invalid") }}
+                      <div class="invalid-feedback">
+                        {% for error in form.usn.errors %}
+                          <span>{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                    {% elif usn1 == '' %}
+                      {{ form.usn(class="form-control") }}
+                    {% else %}
+                      {{ form.usn(class="form-control", value=usn1, readonly=True) }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group row d-flex justify-content-center"> <!-- Password -->
+                  {{ form.password.label(class="col-sm-2 col-form-label") }}
+                  <div class="col-sm-8">
+                    {% if form.password.errors %}
+                      {{ form.password(class="form-control is-invalid", type="password") }}
+                      <div class="invalid-feedback">
+                        {% for error in form.password.errors %}
+                          <span>{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                    {% elif usn1 == '' %}
+                      {{ form.password(class="form-control", type="password") }}
+                    {% else %}
+                      {{ form.password(class="form-control", type="password", placeholder="Type new password here") }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group row d-flex justify-content-center"> <!-- User Type -->
+                  {{ form.utype.label(class="col-sm-2 col-form-label") }}
+                  <div class="col-sm-8">
+                      {{ form.utype(class="form-control") }}
+                  </div>
+                </div>
+                <div class="form-group row d-flex justify-content-center"> <!-- User Responsibility -->
+                  {{ form.resp.label(class="col-sm-2 col-form-label") }}
+                  <div class="col-sm-8">
+                      {{ form.resp(class="form-control", placeholder="Department Initials or Event Name", value=uresp) }}
+                  </div>
+                </div>
+              </fieldset>
+              <div class="d-flex justify-content-center"> <!-- Submit Button -->
+                {{ form.submit(class="submit-btn") }}
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Add User Section -->
+{% endblock content %}

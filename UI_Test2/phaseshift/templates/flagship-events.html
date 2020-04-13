@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block headerclass %}
+  style="background: #99b3ff;height: 70px;padding: 15px 0"
+{% endblock %}
+{% block homeicon %}
+  <div id="logo" class="pull-left">
+    <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="" title="Phase Shift Home"></a>
+{% endblock %}
+{% block navigation %}
+  <li><a href="{{ url_for('home')}}">Home</a></li>
+  <li class="menu-active"><a href="#flagship">Flagship Events</a></li>
+  <li><a href="{{ url_for('workshops')}}">Workshops</a></li>
+  <li><a href="{{ url_for('all_events', choice='All')}}"> General Events</a></li>
+{% endblock navigation %}
+{% block content %}
+  <main id="main">
+    <!-- ======= Flagship Section ======= -->
+    <section id="flagship" class="wow fadeIn">
+      <div class="container">
+        <div class="section-header">
+            <br><br><br>
+          <h2>Flagship Events</h2>
+          <p>Flagship Events of Various Departments.</p>
+        </div>
+        <div class="row">
+          {% for event in eflagship %}
+            <div class="col-lg-4 col-md-6">
+              <div class="event">
+                <img src="{{ url_for('static', filename='img/speakers/3.jpg') }}" alt="Event 1" class="img-fluid">
+                <div class="details">
+                  <h3><a href="{{ url_for('registration', eventName=event.name) }}">{{ event.name }}</a></h3>
+                  <p>{{ event.dept }}</p>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section><!-- End Flagship Section -->
+  </main><!-- End #main -->
+{% endblock content %}

@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+{% block headerclass %}
+  style="background: #99b3ff;height: 70px;padding: 15px 0"
+{% endblock %}
+{% block homeicon %}
+  <div id="logo" class="pull-left">
+    <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="" title="Phase Shift Home"></a>
+{% endblock %}
+{% block navigation %}
+<li><a href="{{ url_for('home')}}">Home</a></li>
+<li><a href="{{ url_for('flagship')}}">Flagship Events</a></li>
+<li><a href="{{ url_for('workshops')}}">Workshops</a></li>
+<li class="menu-active"><a href="#gevents"> General Events</a></li>
+{% endblock navigation %}
+{% block content %}
+  <main id="main">
+    <!-- ======= General Events Section ======= -->  
+    <section id="gevents" class="wow fadeIn">
+      <div class="container">
+        <div class="section-header" style="margin:0px 0px 20px">
+          <br><br><br>
+          {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+              {% for category, message in messages %}
+              <div class="alert alert-{{ category }}">
+                {{ message }}<br>
+              </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          <h2>General Events</h2>
+          <p>General Events of Various Departments.</p>
+        </div>
+        <form method="POST" action="">
+          {{ form.hidden_tag() }}
+          <div class="form-group row justify-content-md-center">
+            {{ form.ch.label(class="col-form-label filter-label") }}
+            {{ form.ch(class="col-sm-2 form-control") }}
+            <div class="filter-button">
+              {{ form.submit(class="submit-btn") }}
+            </div>
+          </div>
+        </form>
+        <div class="row">
+          {% if choice == 'All' %}
+            {% for event in events %}
+              {% if event['workshop'] == False %}
+                <div class="col-lg-3 col-md-6">
+                  <div class="event">
+                    <div class="event-img">
+                      <img src="{{ url_for('static', filename='img/hotels/1.jpg') }}" alt="Event 1" class="img-fluid">
+                    </div>
+                    <h3><a href="{{ url_for('registration', eventName=event.name) }}">{{ event.name }}</a></h3>
+                    <p>{{ event.etype }}</p>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% else %}
+            {% for event in events %}
+              {% if event['etype'] == choice %}
+                <div class="col-lg-3 col-md-6">
+                  <div class="event">
+                    <div class="event-img">
+                      <img src="{{ url_for('static', filename='img/hotels/2.jpg') }}" alt="Event 1" class="img-fluid">
+                    </div>
+                    <h3><a href="{{ url_for('registration', eventName=event.name) }}">{{ event.name }}</a></h3>
+                    <p>{{ event.etype }}</p>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    </section><!-- End General Events Section -->
+  </main><!-- End #main -->
+{% endblock content %}

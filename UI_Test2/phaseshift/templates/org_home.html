@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% block headerclass %}
+  style="background: #99b3ff;height: 70px;padding: 15px 0"
+{% endblock %}
+{% block homeicon %}
+  <div id="logo" class="pull-left">
+    <a href="{{ url_for('org_home', filters='None', user=user) }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="" title="Phase Shift Home"></a>
+{% endblock homeicon %}
+{% block navigation %}
+  <li class="menu-active"><a href="#VR">View Registrations</a></li>
+  <li><a href="{{ url_for('logout') }}">Logout</a></li>
+{% endblock navigation %}
+{% block content %}
+  <main id="main">
+    <!-- ======= View registration section ======= -->
+    <section id="VR" class="section-with-bg wow fadeInUp">
+      <div class="container">
+        <div class="section-header">
+          <br><br><br>
+          <h2>View Registrations</h2>
+        </div>
+        <form method="POST" action="">
+          {{ form.hidden_tag() }}
+          <div class="form-group row justify-content-md-center">
+            {{ form.ch.label(class="col-form-label filter-label") }}
+            {{ form.ch(class="col-sm-2 form-control") }}
+            <div class="filter-button">
+              {{ form.submit(class="submit-btn") }}
+            </div>
+          </div>
+        </form>
+        {% if filters != 'None' %}
+          <div class="d-flex justify-content-center">
+            <table class="table" style="text-align: center">
+              <thead style="background:#00004d; color:#fff">
+                <tr>
+                  <td>Event Name</td>
+                  <td>Name</td>
+                  <td>USN</td>
+                  <td>College</td>
+                  <td>Email</td>
+                </tr>
+              </thead>
+              {% for reg in regs %}
+                <tr>
+                  <td>{{ reg.event_name }}</td>
+                  <td>{{ reg.stud_name }}</td>
+                  <td>{{ reg.stud_usn }}</td>
+                  <td>{{ reg.stud_college }}</td>
+                  <td>{{ reg.stud_email }}</td>
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
+        {% endif %}
+      </div>
+    </section><!-- View Regisytation -->
+  </main><!-- End #main -->
+{% endblock content %}
