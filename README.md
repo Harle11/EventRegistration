@@ -11,6 +11,7 @@ Usage Steps:
    - `pip install Flask-FontAwesome`
    - `pip install Flask-WTF`
    - `pip install Flask-SQLAlchemy`
+   - `pip install flask-bcrypt`
 
 2. Execute `python run.py` once you have changed directory to UI_Test2
 
