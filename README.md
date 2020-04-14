@@ -10,15 +10,15 @@ Usage Steps:
    - `pip install Flask`
    - `pip install Flask-FontAwesome`
    - `pip install Flask-WTF`
-   - `pip install SQLAlchemy`
+   - `pip install Flask-SQLAlchemy`
 
-2. Execute `python run.py` once you have changed directory to UI_Test1
+2. Execute `python run.py` once you have changed directory to UI_Test2
 
 to be continued...
 
 ## About Files
 
 1. v5 Folder contains all the UI pages written in simple HTML CSS and JS.
-2. UI_Test1 folder contains the pages of v4 written in python using Flask
+2. UI_Test2 folder contains the pages of v5 written in python using Flask
 
 to be continued...
