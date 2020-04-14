@@ -114,6 +114,7 @@ def login():
                 flash('Welcome Admin', 'success')
                 return redirect(url_for('admin_home', filters='None'))
             else:
+                flash('Welcome {}-{}'.format(user.utype,user.usn),'success')
                 return redirect(url_for('org_home', filters='None', user=user.id))
         flash('Incorrect USN or Password','danger')
     return render_template('login.html', title='Login', form=form)
@@ -146,6 +147,12 @@ def admin_add_user(usnx):
             db.session.commit()
             flash('User {} having responsibility \'{}\' successfully added'.format(form.usn.data,form.resp.data), 'success')
             return redirect(url_for('admin_home', filters='None'))
+    else:
+        if user:
+            password = form.password.data
+            if password and len(password) < 6:
+                flash('Password too short, unable to update.', 'danger')
+                return redirect(url_for('admin_add_user', usnx=user.usn))
     if user:
         form = NewUser(utype=user.utype)
         usn1 = user.usn
