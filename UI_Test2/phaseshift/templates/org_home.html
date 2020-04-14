@@ -4,7 +4,7 @@
 {% endblock %}
 {% block homeicon %}
   <div id="logo" class="pull-left">
-    <a href="{{ url_for('org_home', filters='None', user=user) }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="" title="Phase Shift Home"></a>
+    <a href="{{ url_for('org_home', filters='None', user=current_user.id) }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="" title="Phase Shift Home"></a>
 {% endblock homeicon %}
 {% block navigation %}
   <li class="menu-active"><a href="#VR">View Registrations</a></li>

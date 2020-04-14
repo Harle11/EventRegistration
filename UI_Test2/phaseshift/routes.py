@@ -1,5 +1,6 @@
 from flask import render_template, url_for, flash, redirect
-from phaseshift import app, db
+from flask_login import login_user, current_user, logout_user, login_required
+from phaseshift import app, db, bcrypt
 from phaseshift.models import Users, Events, EventRegistration
 from phaseshift.forms import *
 
@@ -106,32 +107,46 @@ def home():
 
 @app.route("/organizer/login", methods=['GET','POST'])
 def login():
+    if current_user.is_authenticated:
+        if current_user.utype == 'admin':
+            return redirect(url_for('admin_home', filters='None'))
+        else:
+            return redirect(url_for('org_home', filters='None', user=current_user.id))
     form = LoginForm()
     if form.validate_on_submit():
         user = Users.query.filter_by(usn=form.usn.data).first()
-        if user and user.password == form.password.data:
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
             if user.utype == 'admin':
+                login_user(user, remember=form.remember.data)
                 flash('Welcome Admin', 'success')
                 return redirect(url_for('admin_home', filters='None'))
             else:
+                login_user(user, remember=form.remember.data)
                 flash('Welcome {}-{}'.format(user.utype,user.usn),'success')
                 return redirect(url_for('org_home', filters='None', user=user.id))
         flash('Incorrect USN or Password','danger')
     return render_template('login.html', title='Login', form=form)
 
 @app.route("/organizer/logout")
+@login_required
 def logout():
+    logout_user()
     flash('Succesfully logged out', 'success')
     return redirect(url_for('login'))
 
 @app.route("/organizer/admin/userlist/<usnx>", methods=['GET','POST'])
+@login_required
 def admin_add_user(usnx):
+    if current_user.is_authenticated:
+        if current_user.utype != 'admin':
+            flash('You do not have access to that page', 'danger')
+            return redirect(url_for('login'))
     user = Users.query.filter_by(usn=usnx).first()
     form = NewUser()
     usn1 = uresp = ""
     if form.validate_on_submit():
         if user:
-            user.password = form.password.data
+            user.password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
             user.utype = form.utype.data
             user.responsibility = form.resp.data
             db.session.commit()
@@ -142,7 +157,8 @@ def admin_add_user(usnx):
             if exists:
                 flash('User {} already has a responsibility({}). Give a different user\'s USN'.format(form.usn.data, exists.responsibility), 'danger')
                 return redirect(url_for('admin_add_user', usnx='Add-User'))
-            u1 = Users(usn=form.usn.data, password=form.password.data, utype=form.utype.data, responsibility=form.resp.data)
+            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+            u1 = Users(usn=form.usn.data, password=hashed_password, utype=form.utype.data, responsibility=form.resp.data)
             db.session.add(u1)
             db.session.commit()
             flash('User {} having responsibility \'{}\' successfully added'.format(form.usn.data,form.resp.data), 'success')
@@ -160,7 +176,12 @@ def admin_add_user(usnx):
     return render_template('admin_user.html', title='Add User', form=form, usn1=usn1, uresp=uresp)
 
 @app.route("/organizer/admin/delete/<usnx>", methods=['GET'])
+@login_required
 def admin_delete_user(usnx):
+    if current_user.is_authenticated:
+        if current_user.utype != 'admin':
+            flash('You do not have access to that page', 'danger')
+            return redirect(url_for('login'))
     user = Users.query.filter_by(usn=usnx).first()
     if user:
         usn = user.usn
@@ -174,25 +195,38 @@ def admin_delete_user(usnx):
         return redirect(url_for('admin_home', filters='None'))
 
 @app.route("/organizer/admin/<filters>", methods=['GET','POST'])
+@login_required
 def admin_home(filters):
+    if current_user.is_authenticated:
+        if current_user.utype != 'admin':
+            flash('You do not have access to that page', 'danger')
+            return redirect(url_for('login'))
     form = eventListFilter(ch=filters)
     if form.validate_on_submit():
         return redirect(url_for('admin_home', filters=form.ch.data))
     all_users=Users.query.order_by(Users.usn).all()
-    all_users=all_users[:-1]
+    user_list=[]
+    for u in all_users:
+        if u.utype != 'admin':
+            user_list.append(u)
     regs = ''
     if filters != 'None' and filters != 'All':
         regs = EventRegistration.query.filter_by(event_name=filters).order_by(EventRegistration.stud_name).all()
         if regs:
-            return render_template('admin_home.html', title='Admin Home', all_users=all_users, filters=filters, regs=regs, form=form)
+            return render_template('admin_home.html', title='Admin Home', all_users=user_list, filters=filters, regs=regs, form=form)
         else:
             return render_template('404.html', title='Error 404', message='Unknown event name')
     elif filters == 'All':
         regs = EventRegistration.query.order_by(EventRegistration.event_name,EventRegistration.stud_name).all()
-    return render_template('admin_home.html', title='Admin Home', all_users=all_users, filters=filters, regs=regs, form=form)
+    return render_template('admin_home.html', title='Admin Home', all_users=user_list, filters=filters, regs=regs, form=form)
 
 @app.route("/organizer/<user>/<filters>", methods=['GET','POST'])
+@login_required
 def org_home(user, filters):
+    if current_user.is_authenticated:
+        if str(current_user.id) != str(user):
+            flash('You don\'t have access to that page', 'danger')
+            return redirect(url_for('login'))
     user=Users.query.filter_by(id=user).first()
     eventnames = []
     form = eventListFilterDC(ch=filters)
