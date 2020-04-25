@@ -2,6 +2,7 @@
 {% block homeicon %}
   <div id="logo" class="pull-left">
     <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="" title="Phase Shift Home"></a>
+  </div>
 {% endblock %}
 {% block navigation %}
   <li class="menu-active"><a href="#intro">Home</a></li>
@@ -125,17 +126,17 @@
         </div>
         <div class="row">
           {% for event in events %}
-            {% if event['workshop'] == False %}
-              <div class="col-lg-3 col-md-6">
-                <div class="event">
-                  <div class="event-img">
-                    <img src="{{ url_for('static', filename='img/hotels/1.jpg') }}" alt="Event 1" class="img-fluid">
-                  </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="event">
+                <div class="event-img">
+                  <img src="{{ url_for('static', filename='img/hotels/1.jpg') }}" alt="Event 1" class="img-fluid">
+                </div>
+                <div class="details">
                   <h3><a href="{{ url_for('registration', eventName=event.name) }}">{{ event.name }}</a></h3>
                   <p>{{ event.etype }}</p>
                 </div>
               </div>
-            {% endif %}
+            </div>
           {% endfor %}
         </div>
         <div class="d-flex justify-content-center">
@@ -982,37 +983,33 @@
       <div class="container">
 
         <div class="section-header">
-          <h2>Contact Us</h2>
-          <p>Nihil officia ut sint molestiae tenetur.</p>
+          <h2>Follow Us</h2>
         </div>
-
         <div class="row contact-info">
-
           <div class="col-md-4">
             <div class="contact-address">
-              <i class="ion-ios-location-outline"></i>
-            <!--  <img src="assets/img/c1.jpg">-->
-              <address>C1</address>
+              <a href="https://www.instagram.com/bmsce_phaseshift/"><i class="fa fa-instagram" aria-hidden="true"></i></a><br>
+              <div class="anctext">
+                <a href="https://www.instagram.com/bmsce_phaseshift/">Phase Shift on Intagram</i></a>
+              </div>
             </div>
           </div>
-
           <div class="col-md-4">
             <div class="contact-phone">
-              <i class="ion-ios-telephone-outline"></i>
-              <!--<img src="assets/img/c2.jpg">-->
-              <address>C2</address>
-              
+              <a href="https://www.facebook.com/techfest.bmsce/"><i class="fa fa-facebook-square"></i></a><br>
+              <div class="anctext">
+                <a href="https://www.facebook.com/techfest.bmsce/">Phase Shift on Facebook</i></a>
+              </div>
             </div>
           </div>
-
           <div class="col-md-4">
             <div class="contact-email">
-              <i class="ion-ios-email-outline"></i>
-             <!-- <img src="assets/img/c3.jpg">-->
-              <address>C3</address>
+              <a href="https://twitter.com/bmscephaseshift"><i class="fa fa-twitter"></i></a><br>
+              <div class="anctext">
+                <a href="https://twitter.com/bmscephaseshift">Phase Shift on Twitter</i></a>
+              </div>
             </div>
           </div>
-
         </div>
       </div>
     </section><!-- End Contact Section -->

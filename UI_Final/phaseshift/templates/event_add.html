@@ -1,0 +1,195 @@
+{% extends "layout.html" %}
+{% block headerclass %}
+  style="background: #99b3ff;height: 70px;padding: 15px 0"
+{% endblock %}
+{% block homeicon %}
+  <div id="logo" class="pull-left">
+    <a href="{{ url_for('myevents') }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="" title="Phase Shift Home"></a>
+  </div>
+{% endblock homeicon %}
+{% block navigation %}
+  {% if eve %}
+    <li class="menu-active"><a href="#adduser">Modify Event</a></li>
+    <li><a href="{{ url_for('add_edit_events', eventx='Add-Event') }}">Add Event</a></li>
+  {% else %}
+    <li class="menu-active"><a href="#adduser">Add Event</a></li>
+  {% endif %}
+  <li><a href="{{ url_for('myevents') }}">View All Events</a></li>
+{% endblock navigation %}
+{% block content %}
+  <main id="main">
+    <!-- ======= Add User section ======= -->
+    <section id="adduser" class="wow fadeIn">
+      <div class="container">
+        <div class="section-header">
+          <br><br><br>
+          {% if eve %}
+            <h2>Modify Events Form</h2>
+          {% else %}
+            <h2>Add Events Form</h2>
+          {% endif %}
+          {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+              {% for category, message in messages %}
+              <div class="alert alert-{{ category }}">
+                {{ message }}<br>
+              </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </div>
+        <div class="d-flex justify-content-center">
+          <div class="col-md-12">
+            <form method="POST" action="">
+              {{ form.hidden_tag() }}
+              <fieldset>
+                <div class="form-group row d-flex justify-content-center"> <!-- Name -->
+                  {{ form.name.label(class="col-sm-2 col-form-label") }}
+                  <div class="col-sm-8">
+                    {% if eve %}
+                      {{ form.name(class="form-control", value=eve.name) }}
+                    {% else %}
+                      {{ form.name(class="form-control") }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group row d-flex justify-content-center"> <!-- Evalue -->
+                  {{ form.evalue.label(class="col-sm-2 col-form-label") }}
+                  <div class="col-sm-8">
+                    {% if eve %}
+                      {{ form.evalue(class="form-control", value=eve.evalue) }}
+                    {% else %}
+                      {{ form.evalue(class="form-control") }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group row d-flex justify-content-center"> <!-- etype -->
+                  {{ form.etype.label(class="col-sm-2 col-form-label") }}
+                  <div class="col-sm-8">
+                    {% if eve %}
+                      {{ form.etype(class="form-control", value=eve.etype) }}
+                    {% else %}
+                      {{ form.etype(class="form-control") }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group row d-flex justify-content-center"> <!-- dept -->
+                  {{ form.dept.label(class="col-sm-2 col-form-label") }}
+                  <div class="col-sm-8">
+                    {% if eve %}
+                      {{ form.dept(class="form-control", value=eve.dept) }}
+                    {% else %}
+                      {{ form.dept(class="form-control") }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group row d-flex justify-content-center"> <!-- desc -->
+                  {{ form.desc.label(class="col-sm-2 col-form-label") }}
+                  <div class="col-sm-8">
+                    {% if eve %}
+                      {{ form.desc(class="form-control", value=eve.desc) }}
+                    {% else %}
+                      {{ form.desc(class="form-control") }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group row d-flex justify-content-center"> <!-- rules -->
+                  {{ form.rules.label(class="col-sm-2 col-form-label") }}
+                  <div class="col-sm-8">
+                    {% if eve %}
+                      {{ form.rules(class="form-control", placeholder=eve.rules) }}
+                    {% else %}
+                      {{ form.rules(class="form-control") }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group row d-flex justify-content-center"> <!-- fee -->
+                  {{ form.fee.label(class="col-sm-2 col-form-label") }}
+                  <div class="col-sm-8">
+                    {% if eve %}
+                      {{ form.fee(class="form-control", value=eve.fee) }}
+                    {% else %}
+                      {{ form.fee(class="form-control") }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group row d-flex justify-content-center"> <!-- team_size -->
+                  {{ form.team_size.label(class="col-sm-2 col-form-label") }}
+                  <div class="col-sm-8">
+                    {% if eve %}
+                      {{ form.team_size(class="form-control", value=eve.team_size) }}
+                    {% else %}
+                      {{ form.team_size(class="form-control") }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group row d-flex justify-content-center"> <!-- date -->
+                  {{ form.date.label(class="col-sm-2 col-form-label") }}
+                  <div class="col-sm-8">
+                    {% if eve %}
+                      {{ form.date(class="form-control", value=eve.date) }}
+                    {% else %}
+                      {{ form.date(class="form-control") }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group row d-flex justify-content-center"> <!-- time -->
+                  {{ form.time.label(class="col-sm-2 col-form-label") }}
+                  <div class="col-sm-8">
+                    {% if eve %}
+                      {{ form.time(class="form-control", value=eve.time) }}
+                    {% else %}
+                      {{ form.time(class="form-control") }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group row d-flex justify-content-center"> <!-- venue -->
+                  {{ form.venue.label(class="col-sm-2 col-form-label") }}
+                  <div class="col-sm-8">
+                    {% if eve %}
+                      {{ form.venue(class="form-control", value=eve.venue) }}
+                    {% else %}
+                      {{ form.venue(class="form-control") }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group row d-flex justify-content-center"> <!-- cords -->
+                  {{ form.coordinators.label(class="col-sm-2 col-form-label") }}
+                  <div class="col-sm-8">
+                    {% if eve %}
+                      {{ form.coordinators(class="form-control", value=eve.coordinators) }}
+                    {% else %}
+                      {{ form.coordinators(class="form-control") }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group row d-flex justify-content-center"> <!-- prize -->
+                  {{ form.prize.label(class="col-sm-2 col-form-label") }}
+                  <div class="col-sm-8">
+                    {% if eve %}
+                      {{ form.prize(class="form-control", value=eve.prize) }}
+                    {% else %}
+                      {{ form.prize(class="form-control") }}
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group row d-flex justify-content-center"> <!-- flagship -->
+                  {{ form.flagship.label(class="col-sm-2 col-form-label") }}
+                  <div class="col-sm-8">
+                    {% if eve %}
+                      {{ form.flagship(class="form-control", checked=eve.flagship) }}
+                    {% else %}
+                      {{ form.flagship(class="form-control") }}
+                    {% endif %}
+                  </div>
+                </div>
+              </fieldset>
+              <div class="d-flex justify-content-center"> <!-- Submit Button -->
+                {{ form.submit(class="submit-btn") }}
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Add User Section -->
+{% endblock content %}

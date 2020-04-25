@@ -18,9 +18,11 @@ class Users(db.Model, UserMixin):
 class Events(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
+    evalue = db.Column(db.String(100), nullable=False)
     etype = db.Column(db.String(50), nullable=False)
     dept = db.Column(db.String(30), nullable=False)
     desc = db.Column(db.String(200), nullable=False)
+    rules = db.Column(db.String(200), nullable=False)
     fee = db.Column(db.String(5), nullable=False)
     team_size = db.Column(db.Integer, nullable=False, default=1)
     date = db.Column(db.String(15), nullable=False)
@@ -28,7 +30,6 @@ class Events(db.Model):
     venue = db.Column(db.String(50), nullable=False)
     coordinators = db.Column(db.String(100), nullable=False)
     prize = db.Column(db.String(50), nullable=False)
-    workshop = db.Column(db.Boolean, nullable=False, default=False)
     flagship = db.Column(db.Boolean, nullable=False, default=False)
     registered = db.relationship('EventRegistration', backref='regEvent', lazy=True)
 

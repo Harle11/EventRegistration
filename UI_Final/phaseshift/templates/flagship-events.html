@@ -5,28 +5,29 @@
 {% block homeicon %}
   <div id="logo" class="pull-left">
     <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="" title="Phase Shift Home"></a>
+  </div>
 {% endblock %}
 {% block navigation %}
   <li><a href="{{ url_for('home')}}">Home</a></li>
-  <li><a href="{{ url_for('flagship')}}">Flagship Events</a></li>
-  <li class="menu-active"><a href="#workshops">Workshops</a></li>
+  <li class="menu-active"><a href="#flagship">Flagship Events</a></li>
+  <li><a href="{{ url_for('workshops')}}">Workshops</a></li>
   <li><a href="{{ url_for('all_events', choice='All')}}"> General Events</a></li>
 {% endblock navigation %}
 {% block content %}
   <main id="main">
-    <!--===== Workshop Section =====-->
-    <section id="workshops" class="wow fadeIn">
+    <!-- ======= Flagship Section ======= -->
+    <section id="flagship" class="wow fadeIn">
       <div class="container">
         <div class="section-header">
-          <br><br><br>
-          <h2>Workshops</h2>
-          <p>Workshops of Various Departments.</p>
+            <br><br><br>
+          <h2>Flagship Events</h2>
+          <p>Flagship Events of Various Departments.</p>
         </div>
         <div class="row">
-          {% for event in eworkshops %}
+          {% for event in eflagship %}
             <div class="col-lg-4 col-md-6">
               <div class="event">
-                <img src="{{ url_for('static', filename='img/speakers/1.jpg') }}" alt="Event 1" class="img-fluid">
+                <img src="{{ url_for('static', filename='img/speakers/3.jpg') }}" alt="Event 1" class="img-fluid">
                 <div class="details">
                   <h3><a href="{{ url_for('registration', eventName=event.name) }}">{{ event.name }}</a></h3>
                   <p>{{ event.dept }}</p>
@@ -36,6 +37,6 @@
           {% endfor %}
         </div>
       </div>
-    </section><!-- End Workshops Section -->
+    </section><!-- End Flagship Section -->
   </main><!-- End #main -->
 {% endblock content %}

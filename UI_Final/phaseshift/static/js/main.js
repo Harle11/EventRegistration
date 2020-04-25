@@ -166,3 +166,57 @@
   })
 
 })(jQuery);
+
+function setTeleFilter(telbox, inputFilter) {
+  ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
+    telbox.addEventListener(event, function() {
+      if (inputFilter(this.value)) {
+        this.oldValue = this.value;
+        this.oldSelectionStart = this.selectionStart;
+        this.oldSelectionEnd = this.selectionEnd;
+      } else if (this.hasOwnProperty("oldValue")) {
+        this.value = this.oldValue;
+        this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+      } else {
+        this.value = "";
+      }
+    });
+  });
+}
+
+function setInputFilter(textbox, inputFilter) {
+  ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
+    textbox.addEventListener(event, function() {
+      if (inputFilter(this.value)) {
+        this.oldValue = this.value;
+        this.oldSelectionStart = this.selectionStart;
+        this.oldSelectionEnd = this.selectionEnd;
+      } else if (this.hasOwnProperty("oldValue")) {
+        this.value = this.oldValue;
+        this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+      } else {
+        this.value = "";
+      }
+    });
+  });
+}
+
+setInputFilter(document.getElementById("fullname"), function(value) {
+  return /^[a-zA-Z \n]*$/.test(value);
+})
+
+setInputFilter(document.getElementById("college"), function(value) {
+  return /^[A-Z]*$/.test(value);
+})
+
+setInputFilter(document.getElementById("usn"), function(value) {
+  return /^[A-Z0-9\n]*$/.test(value);
+})
+
+setInputFilter(document.getElementById("email"), function(value) {
+  return /^\S*$/.test(value);
+})
+
+setTeleFilter(document.getElementById("phno"), function(value) {
+  return /^\d*$/.test(value);
+})

@@ -556,6 +556,23 @@ body.mobile-nav-active #mobile-nav-toggle {
   border-radius: 0;
 }
 
+#intro .submit-btn {
+  font-family: "Raleway", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 12px 32px;
+  border-radius: 50px;
+  transition: 0.5s;
+  line-height: 1;
+  margin: 10px;
+  color: #fff;
+  -webkit-animation-delay: 0.8s;
+  animation-delay: 0.8s;
+  border: 2px solid #00004d;
+}
+
 @-webkit-keyframes pulsate-btn {
   0% {
     -webkit-transform: scale(0.6, 0.6);
@@ -762,8 +779,8 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #gevents .event {
-  border: 1px solid #e0e5fa;
-  background: #000;
+  position: relative;
+  overflow: hidden;
   margin-bottom: 30px;
 }
 
@@ -774,21 +791,31 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 #gevents .event-img {
   overflow: hidden;
-  margin-bottom: 15px;
 }
 
 #gevents .event-img img {
   transition: 0.3s ease-in-out;
 }
 
-#gevents h3 {
-  font-weight: 600;
-  font-size: 20px;
-  margin-bottom: 5px;
-  padding: 0 20px;
+#gevents .event .details {
+  background: rgba(6, 12, 34, 0.76);
+  position: absolute;
+  left: 0;
+  bottom: -30px;
+  right: 0;
+  text-align: center;
+  padding-top: 10px;
+  transition: all 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-#gevents a {
+#gevents .event .details h3 {
+  color: #fff;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+#gevents .event .details a {
   color: #fff;
 }
 
@@ -797,11 +824,10 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #gevents .event p {
-  padding: 0 20px;
-  margin-bottom: 20px;
   color: #fff;
-  font-style: italic;
   font-size: 15px;
+  margin-bottom: 10px;
+  font-style: italic;
 }
 
 #gevents .allevents-btn {
@@ -827,6 +853,14 @@ body.mobile-nav-active #mobile-nav-toggle {
   color: #fff;
 }
 
+#gevents .event .details a:hover {
+  text-decoration: underline overline;
+}
+
+#gevents .event:hover .details {
+  bottom: 0;
+}
+
 #gevents .filter-button .submit-btn {
   margin: 1px 20px;
   padding: 8px 32px;
@@ -842,6 +876,12 @@ body.mobile-nav-active #mobile-nav-toggle {
   -webkit-animation-delay: 0.8s;
   animation-delay: 0.8s;
   border: 2px solid #00004d;
+}
+
+#gevents .filter-button .submit-btn:hover {
+  text-decoration: none;
+  background: #00004d;
+  color: #fff;
 }
 
 #gevents .filter-label {
@@ -1121,90 +1161,27 @@ body.mobile-nav-active #mobile-nav-toggle {
   display: inline-block;
   margin-bottom: 10px;
   color: #00004d;
+  border-radius: 10px;
+  padding: 0px 3px;
 }
 
-#contact .contact-info address,
-#contact .contact-info p {
-  margin-bottom: 0;
-  color: #112363;
+#contact .contact-info i:hover {
+  color: #fff;
+  background-color: #00004d;
+  transition: all 0.5;
 }
 
-#contact .contact-info h3 {
-  font-size: 18px;
-  margin-bottom: 15px;
+#contact .contact-info .anctext a {
+  color: #00004d;
+  padding: 5px 10px;
+  border-radius: 10px;
   font-weight: bold;
-  text-transform: uppercase;
-  color: #112363;
 }
 
-#contact .contact-info a {
-  color: #4869df;
-}
-
-#contact .contact-info a:hover {
-  color: #00004d;
-}
-
-#contact .contact-address,
-#contact .contact-phone,
-#contact .contact-email {
-  margin-bottom: 20px;
-}
-
-#contact .form #sendmessage {
-  color: #00004d;
-  border: 1px solid #00004d;
-  display: none;
-  text-align: center;
-  padding: 15px;
-  font-weight: 600;
-  margin-bottom: 15px;
-}
-
-#contact .form #errormessage {
-  color: red;
-  display: none;
-  border: 1px solid red;
-  text-align: center;
-  padding: 15px;
-  font-weight: 600;
-  margin-bottom: 15px;
-}
-
-#contact .form #sendmessage.show,
-#contact .form #errormessage.show,
-#contact .form .show {
-  display: block;
-}
-
-#contact .form .validation {
-  color: red;
-  display: none;
-  margin: 0 0 20px;
-  font-weight: 400;
-  font-size: 13px;
-}
-
-#contact .form input,
-#contact .form textarea {
-  padding: 10px 14px;
-  border-radius: 0;
-  box-shadow: none;
-  font-size: 15px;
-}
-
-#contact .form button[type="submit"] {
-  background: #00004d;
-  border: 0;
-  padding: 10px 40px;
-  color: #000;
-  transition: 0.4s;
-  border-radius: 50px;
-  cursor: pointer;
-}
-
-#contact .form button[type="submit"]:hover {
-  background: #00004d;
+#contact .contact-info .anctext a:hover {
+  color: #fff;
+  background-color: #00004d;
+  transition: all 0.5;
 }
 
 /*--------------------------------------------------------------
@@ -1303,6 +1280,10 @@ body.mobile-nav-active #mobile-nav-toggle {
   -webkit-animation-delay: 0.8s;
   animation-delay: 0.8s;
   border: 2px solid #00004d;
+}
+
+#VR .filter-button .submit-btn:hover {
+  color:#fff;
 }
 
 #VR .filter-label {

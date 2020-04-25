@@ -4,22 +4,20 @@
 {% endblock %}
 {% block homeicon %}
   <div id="logo" class="pull-left">
-    <a href="{{ url_for('admin_home', filters='None') }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="" title="Phase Shift Home"></a>
+    <a href="{{ url_for('org_home', filters='None', user=current_user.id) }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="" title="Phase Shift Home"></a>
+    </div>
 {% endblock homeicon %}
 {% block navigation %}
-<li class="menu-active"><a href="#viewuser">View Users</a></li>
-  <li><a href="{{ url_for('admin_add_user', usnx='Add-User') }}">Add User</a></li>
-  <li><a href="#VR">View Registrations</a></li>
+  <li class="menu-active"><a href="#VR">View Registrations</a></li>
   <li><a href="{{ url_for('logout') }}">Logout</a></li>
 {% endblock navigation %}
 {% block content %}
   <main id="main">
-    <!-- ======= View User section ======= -->
-    <section id="viewuser" class="wow fadeInUp">
+    <!-- ======= View registration section ======= -->
+    <section id="VR" class="section-with-bg wow fadeInUp">
       <div class="container">
         <div class="section-header">
           <br><br><br>
-          <h2>View Users</h2>
           {% with messages = get_flashed_messages(with_categories=True) %}
             {% if messages %}
               {% for category, message in messages %}
@@ -29,36 +27,6 @@
               {% endfor %}
             {% endif %}
           {% endwith %}
-        </div>
-        <div class="d-flex justify-content-center">
-          <table class="table" style="text-align: center">
-            <thead style="background:#00004d; color:#fff">
-              <tr>
-                <td>USN</td>
-                <td>User Type</td>
-                <td>Responsibility</td>
-                <td>Update</td>
-                <td>Delete</td>
-              </tr>
-            </thead>
-            {% for user in all_users %}
-              <tr class="usn">
-                <td>{{ user.usn }}</td>
-                <td>{{ user.utype }}</td>
-                <td>{{ user.responsibility }}</td>
-                <td style="padding:3px 0px"><a href="{{ url_for('admin_add_user', usnx=user.usn) }}" class="submit-btn" style="margin:0px">Update</a></td>
-                <td style="padding:3px 0px"><a href="{{ url_for('admin_delete_user', usnx=user.usn) }}" class="submit-btn" style="margin:0px">Delete</a></td>
-              </tr>
-            {% endfor %}
-          </table>
-        </div>
-      </div>
-    </section><!-- End View User Section -->
-
-    <!-- ======= View registration section ======= -->
-    <section id="VR" class="section-with-bg wow fadeInUp">
-      <div class="container">
-        <div class="section-header">
           <h2>View Registrations</h2>
         </div>
         <form method="POST" action="">

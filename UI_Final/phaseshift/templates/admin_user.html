@@ -5,6 +5,7 @@
 {% block homeicon %}
   <div id="logo" class="pull-left">
     <a href="{{ url_for('admin_home', filters='None') }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="" title="Phase Shift Home"></a>
+  </div>
 {% endblock homeicon %}
 {% block navigation %}
   {% if usn1 != '' %}

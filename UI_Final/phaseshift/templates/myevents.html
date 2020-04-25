@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block headerclass %}
+  style="background: #99b3ff;height: 70px;padding: 15px 0"
+{% endblock %}
+{% block homeicon %}
+  <div id="logo" class="pull-left">
+    <a href="{{ url_for('myevents') }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="" title="Phase Shift Home"></a>
+  </div>
+{% endblock homeicon %}
+{% block navigation %}
+<li class="menu-active"><a href="#viewuser">View Events</a></li>
+  <li><a href="{{ url_for('add_edit_events', eventx='Add-Event') }}">Add Event</a></li>
+{% endblock navigation %}
+{% block content %}
+  <main id="main">
+    <!-- ======= View User section ======= -->
+    <section id="viewuser" class="wow fadeInUp">
+      <div class="container">
+        <div class="section-header">
+          <br><br><br>
+          <h2>View Events</h2>
+          {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+              {% for category, message in messages %}
+              <div class="alert alert-{{ category }}">
+                {{ message }}<br>
+              </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </div>
+        <div class="d-flex justify-content-center">
+          <table class="table" style="text-align: center">
+            <thead style="background:#00004d; color:#fff">
+              <tr>
+                <td>Name</td>
+                <td>Event Type</td>
+                <td>Department</td>
+                <td>Update</td>
+                <td>Delete</td>
+              </tr>
+            </thead>
+            {% for eve in all_eves %}
+              <tr class="usn">
+                <td>{{ eve.name }}</td>
+                <td>{{ eve.etype }}</td>
+                <td>{{ eve.dept }}</td>
+                <td style="padding:3px 0px"><a href="{{ url_for('add_edit_events', eventx=eve.evalue) }}" class="submit-btn" style="margin:0px">Update</a></td>
+                <td style="padding:3px 0px"><a href="{{ url_for('delete_event', eventx=eve.evalue) }}" class="submit-btn" style="margin:0px">Delete</a></td>
+              </tr>
+            {% endfor %}
+          </table>
+        </div>
+      </div>
+    </section><!-- End View User Section -->
+  </main><!-- End #main -->
+{% endblock content %}

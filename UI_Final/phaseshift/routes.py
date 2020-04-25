@@ -1,108 +1,16 @@
 from flask import render_template, url_for, flash, redirect
 from flask_login import login_user, current_user, logout_user, login_required
-from phaseshift import app, db, bcrypt
-from phaseshift.models import Users, Events, EventRegistration
+from flask_mail import Message
+from sqlalchemy.sql import func
+from phaseshift import app, db, bcrypt, mail
+from phaseshift.models import *
 from phaseshift.forms import *
-
-events = [
-    {
-        'name': 'Fishing Expedition',
-        'evalue': 'fishing_expedition',
-        'etype': 'Treasure Hunt',
-        'dept': 'MCA',
-        'desc': 'Participants are requested to be aware of ASCII values. Round1: Reframing the code using the ASCII values. Round2: Debugging the html code and finding clues for the successive HTML files and finally reach the destination file.',
-        'fee': 200,
-        'team_size': 3,
-        'date': '15/09/2019',
-        'time': '1pm - 5pm',
-        'venue': 'MCA Lab, PG Block',
-        'coordinators': 'Anitha B#9741175438#Prajwal M P#9900806532',
-        'prize': 'Rs.4000 for winners & Rs.2000 for runner-up',
-        'workshop': False
-    },
-    {
-        'name': 'Dazzle Coding',
-        'evalue': 'dazzle_coding',
-        'etype': 'Coding',
-        'dept': 'MCA',
-        'desc': 'The participants will have to solve the problem with the monitor switched off.',
-        'fee': 100,
-        'team_size': 1,
-        'date': '15/09/2019',
-        'time': '9am - 12pm',
-        'venue': 'MCA Lab, PG Block',
-        'coordinators': 'Anamika Tripati#7039812192#Manasa M N#9731803047',
-        'prize': 'Rs.3000 for winners & Rs.1500 for runner-up',
-        'workshop': False
-    },
-    {
-        'name': 'Sliders',
-        'evalue': 'sliders',
-        'etype': 'Presentation',
-        'dept': 'MCA',
-        'desc': 'Every team will be given a topic to present on. 5 slides max and 5 mins presentation time. Participants will be given 30 mins to prepare their slides.',
-        'fee': 100,
-        'team_size': 2,
-        'date': '14/09/2019',
-        'time': '11am - 2pm',
-        'venue': 'MCA Lab, PG Block',
-        'coordinators': 'Bharath P G#8050568616#Ranjitha S#7411840130',
-        'prize': 'Rs.3000 for winners & Rs.1500 for runner-up',
-        'workshop': False
-    },
-    {
-        'name': 'Zeal',
-        'evalue': 'zeal',
-        'dept': 'MCA',
-        'desc': 'Workshop on energy conservation using technology',
-        'fee': 100,
-        'date': '14/09/2019',
-        'time': '1pm - 5pm',
-        'venue': 'FDC Hall, PG Block',
-        'coordinators': 'Kashish Singh#7406054057#Gowda Pooja Umesh#9448645828',
-        'workshop': True
-    },
-    {
-        'name': 'Some Flag Else',
-        'evalue': 'something_flag_else',
-        'dept': 'ABC',
-        'workshop': True
-    }
-]
-
-eflagship = [
-    {
-        'name': 'Fishing Expedition',
-        'evalue': 'fishing_expedition',
-        'etype': 'Treasure Hunt',
-        'team_size': '3',
-        'dept': 'XYZ'
-    },
-    {
-        'name': 'Some Flag Else',
-        'evalue': 'something_else',
-        'etype': 'Some Type',
-        'team_size': '2',
-        'dept': 'ABC'
-    }
-]
-
-eworkshops = [
-    {
-        'name': 'Zeal',
-        'evalue': 'zeal',
-        'dept': 'MCA'
-    },
-    {
-        'name': 'Some Flag Else',
-        'evalue': 'something_flag_else',
-        'dept': 'ABC'
-    }
-]
-
 
 @app.route("/")
 def home():
+    events = Events.query.filter(Events.etype!='Workshop', Events.flagship==False).order_by(func.random()).limit(8).all()
+    eflagship = Events.query.filter_by(flagship=True).order_by(func.random()).limit(6).all()
+    eworkshops = Events.query.filter_by(etype='Workshop').order_by(func.random()).limit(6).all()
     return render_template('home.html', events=events, eflagship=eflagship, eworkshops=eworkshops)
 
 @app.route("/organizer/login", methods=['GET','POST'])
@@ -227,37 +135,38 @@ def org_home(user, filters):
         if str(current_user.id) != str(user):
             flash('You don\'t have access to that page', 'danger')
             return redirect(url_for('login'))
-    user=Users.query.filter_by(id=user).first()
     eventnames = []
     form = eventListFilterDC(ch=filters)
-    if user:
-        if user.utype == 'Department Coordinator':
-            choices = form.ch.choices
-            all_events = Events.query.filter_by(dept=user.responsibility)
-            for event in all_events:
-                if event.name not in eventnames:
-                    eventnames.append(event.name)
-            for i in range(len(eventnames)):
-                choices.append((eventnames[i],eventnames[i]))
-            form.ch.choices = choices
-        else:
-            choices = form.ch.choices
-            choices = choices[:-1]
-            choices.append((user.responsibility,user.responsibility))
+    if current_user.utype == 'Department Coordinator':
+        choices = form.ch.choices
+        all_events = Events.query.filter_by(dept=current_user.responsibility)
+        for event in all_events:
+            if event.evalue not in eventnames:
+                eventnames.append(event.evalue)
+        for i in range(len(eventnames)):
+            choices.append((eventnames[i],eventnames[i]))
+        form.ch.choices = choices
     else:
-        form = eventListFilter(ch=filters)
+        choices = form.ch.choices
+        choices = choices[:-1]
+        resp = current_user.responsibility
+        choices.append((resp,resp))
+        form.ch.choices = choices
     if form.validate_on_submit():
-        return redirect(url_for('org_home', user=user.id, filters=form.ch.data))
+        return redirect(url_for('org_home', user=current_user.id, filters=form.ch.data))
     regs = []
     if filters != 'None' and filters != 'All':
-        regs = EventRegistration.query.filter_by(event_name=filters).order_by(EventRegistration.stud_name).all()
+        regs = EventRegistration.query.filter(EventRegistration.regEvent.has(evalue=filters)).order_by(EventRegistration.stud_name).all()
         if regs:
-            return render_template('org_home.html', title='Organizer Home', regs=regs, user=user, filters=filters, form=form)
+            return render_template('org_home.html', title='Organizer Home', regs=regs, user=current_user.id, filters=filters, form=form)
         else:
-            return render_template('404.html', title='Error 404', message='Unknown event name. Contact Admin.')
-    '''elif filters == 'All':
-        for event in eventnames:
-            regs.append(EventRegistration.query.filter_by(event_name=event).order_by(EventRegistration.event_name,EventRegistration.stud_name).all())'''
+            event = Events.query.filter_by(evalue=filters).first()
+            if event:
+                return render_template('org_home.html', title='Organizer Home', regs=regs, user=current_user.id, filters=filters, form=form)
+            else:
+                return render_template('404.html', title='Error 404', message='Unknown event name. Contact Admin.'), 404
+    elif filters == 'All':
+        regs = EventRegistration.query.filter(EventRegistration.regEvent.has(dept=current_user.responsibility)).order_by(EventRegistration.event_name,EventRegistration.stud_name).all()
     return render_template('org_home.html', title='Organizer Home', filters=filters, user=user, regs=regs, form=form)
 
 @app.route("/all-events/<choice>", methods=['GET','POST'])
@@ -265,17 +174,20 @@ def all_events(choice):
     form = eventFilter(ch=choice)
     if form.validate_on_submit():
         return redirect(url_for('all_events', choice=form.ch.data))
+    events = Events.query.filter(Events.etype!='Workshop').order_by(Events.name).all()
     for event in events:
-        if choice == event['etype'] or choice == 'All':
+        if choice == event.etype or choice == 'All':
             return render_template('general-events.html', events=events, title='All Events', choice=choice, form=form)
     return render_template('404.html', title='Page not found', message='No such event type exists')
 
 @app.route("/flagship")
 def flagship():
+    eflagship = Events.query.filter_by(flagship=True).order_by(Events.name).all()
     return render_template('flagship-events.html', eflagship=eflagship, title='Flagship Events')
 
 @app.route("/workshops")
 def workshops():
+    eworkshops = Events.query.filter_by(etype='Workshop').order_by(Events.name).all()
     return render_template('workshops.html', eworkshops=eworkshops, title='Workshops')
 
 @app.route("/registration/<eventName>", methods=['GET','POST'])
@@ -287,18 +199,124 @@ def registration(eventName):
         reg = EventRegistration(event_id=eventID,event_name=form.eventName.data,stud_name=form.fullname.data,stud_usn=form.usn.data,stud_college=form.college.data,stud_email=form.email.data,stud_phno=form.phno.data)
         db.session.add(reg)
         db.session.commit()
-        flash('You have successfully registered for {}. Register for more events below!'.format(form.eventName.data), 'success')
+        send_registration_mail(reg)
+        flash('You have successfully registered for {}. You should have received a mail confirming your registration.\nRegister for more events below!'.format(form.eventName.data), 'success')
         return redirect(url_for('all_events', choice='All'))
+    events = Events.query.all()
     for event in events:
-        if eventName == event['name']:
+        if eventName == event.name:
             isworkshop = False
             cords = []
             teamSize = '1'
-            if event['workshop']:
+            if event.etype == 'Workshop':
                 isworkshop = True
             else:
-                teamSize = str(event['team_size'])
-            for x in event['coordinators'].split('#'):
+                teamSize = str(event.team_size)
+            for x in event.coordinators.split('#'):
                     cords.append(x)
             return render_template('event-details.html', title='Event Details', event=event, isworkshop=isworkshop, cords=cords, len=len(cords), form=form, teamSize=teamSize)
     return render_template('404.html', title='Page not found', message='No such event exists')
+
+def send_registration_mail(reg):
+    msg = Message('PhaseShift Registration', sender='ps.registrations@yahoo.com', recipients=[reg.stud_email])
+    names = reg.stud_name.split('\r\n')
+    usns = reg.stud_usn.split('\r\n')
+    allnames = names[0]
+    allusns = usns[0]
+    for i in range(1,len(names)):
+        allnames = allnames + ', ' + names[i]
+        allusns = allusns + ', ' + usns[i]
+    msg.body = '''Hi {},
+
+This is a message from BMSCE PhaseShift acknowledging your registration for the {} event.
+Here are the details:
+    Event Name: {}
+    Student Name(s): {}
+    Student USN(s): {}
+    College: {}
+
+Show this message at the venue to confirm your participation.
+Have a great day and good luck in your event!
+
+If you did not register for an event and received this mail, kindly ignore this mail.'''.format(allnames, reg.event_name, reg.event_name, allnames, allusns, reg.stud_college)
+    mail.send(msg)
+
+@app.errorhandler(404)
+def error_404(error):
+    return render_template('404.html', title='404 Error'), 404
+
+@app.errorhandler(403)
+def error_403(error):
+    return render_template('403.html', title='403 Error'), 403
+
+@app.errorhandler(500)
+def error_500(error):
+    return render_template('500.html', title='Server Error'), 500
+
+@app.route("/add-edit-events/<eventx>", methods=['GET','POST'])
+@login_required
+def add_edit_events(eventx):
+    if current_user.is_authenticated:
+        if current_user.utype != 'admin':
+            flash('You do not have access to that page', 'danger')
+            return redirect(url_for('login'))
+    event = Events.query.filter_by(evalue=eventx).first()
+    form = AddEventForm()
+    if form.validate_on_submit():
+        if event:
+            event.name = form.name.data
+            event.evalue = form.evalue.data
+            event.etype = form.etype.data
+            event.dept = form.dept.data
+            event.desc = form.desc.data
+            event.rules = form.rules.data
+            event.fee = form.fee.data
+            event.team_size = form.team_size.data
+            event.date = form.date.data
+            event.time = form.time.data
+            event.venue = form.venue.data
+            event.coordinators = form.coordinators.data
+            event.prize = form.prize.data
+            event.flagship = form.flagship.data
+            db.session.commit()
+            flash('{} successfully updated'.format(form.name.data), 'success')
+            return redirect(url_for('myevents'))
+        else:
+            e1 = Events(name=form.name.data, evalue=form.evalue.data, etype=form.etype.data, dept=form.dept.data, desc=form.desc.data, rules=form.rules.data, fee=form.fee.data, team_size=form.team_size.data, date=form.date.data, time=form.time.data, venue=form.venue.data, coordinators=form.coordinators.data, prize=form.prize.data, flagship=form.flagship.data)
+            db.session.add(e1)
+            db.session.commit()
+            flash('{} successfully added'.format(form.name.data), 'success')
+            return redirect(url_for('myevents'))
+    eve = None
+    if event:
+        eve = event
+    return render_template('event_add.html', title='Update Event', eve=eve, form=form)
+
+@app.route("/delete-event/<eventx>")
+@login_required
+def delete_event(eventx):
+    if current_user.is_authenticated:
+        if current_user.utype != 'admin':
+            flash('You do not have access to that page', 'danger')
+            return redirect(url_for('login'))
+    event = Events.query.filter_by(name=eventx).first()
+    if event:
+        ename = event.name
+        eid = Events.query.get_or_404(event.id)
+        db.session.delete(eid)
+        db.session.commit()
+        flash('Event {} successfully deleted'.format(ename), 'success')
+        return redirect(url_for('myevents'))
+    else:
+        flash('Something went wrong try again', 'danger')
+        return redirect(url_for('myevents'))
+
+@app.route("/myevents")
+@login_required
+def myevents():
+    if current_user.is_authenticated:
+        if current_user.utype != 'admin':
+            flash('You do not have access to that page', 'danger')
+            return redirect(url_for('login'))
+    all_eves=Events.query.order_by(Events.name).all()
+    return render_template('myevents.html', title='All events', all_eves=all_eves)

@@ -5,6 +5,7 @@
 {% block homeicon %}
   <div id="logo" class="pull-left">
     <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="" title="Phase Shift Home"></a>
+  </div>
 {% endblock %}
 {% block navigation %}
   <li><a href="{{ url_for('home')}}">Home</a></li>
@@ -80,6 +81,14 @@
           {% else %}
             <h2>{{ event.name }} Registration Form</h2>
           {% endif %}
+        </div>
+        <div>
+          <h4>Rules for registration:</h4>
+          <ol>
+            <li>All information provided must match your college ID card.</li>
+            <li>Enter your email ID correctly to receive a registration acknowledgement.</li>
+            <li>This acknowledgement along with your college ID card, must be shown at the venue to confirm your participation.</li>
+          </ol>
         </div>
         <div class="d-flex justify-content-center">
           <div class="col-md-12">
@@ -177,14 +186,14 @@
                   {{ form.college.label(class="col-sm-2 col-form-label") }}
                   <div class="col-sm-8">
                     {% if form.college.errors %}
-                      {{ form.college(class="form-control is-invalid") }}
+                      {{ form.college(class="form-control is-invalid", placeholder="College Initials, eg. BMSCE or RVCE") }}
                       <div class="invalid-feedback">
                         {% for error in form.college.errors %}
                           <span>{{ error }}</span>
                         {% endfor %}
                       </div>
                     {% else %}
-                      {{ form.college(class="form-control") }}
+                      {{ form.college(class="form-control", placeholder="College Initials, eg. BMSCE or RVCE") }}
                     {% endif %}
                   </div>
                 </div>
@@ -192,14 +201,14 @@
                   {{ form.email.label(class="col-sm-2 col-form-label") }}
                   <div class="col-sm-8">
                     {% if form.email.errors %}
-                      {{ form.email(class="form-control is-invalid") }}
+                      {{ form.email(class="form-control is-invalid", placeholder="eg. name@college.in") }}
                       <div class="invalid-feedback">
                         {% for error in form.email.errors %}
                           <span>{{ error }}</span>
                         {% endfor %}
                       </div>
                     {% else %}
-                      {{ form.email(class="form-control") }}
+                      {{ form.email(class="form-control", placeholder="eg. name@college.in") }}
                     {% endif %}
                   </div>
                 </div>
@@ -207,14 +216,14 @@
                   {{ form.phno.label(class="col-sm-2 col-form-label") }}
                   <div class="col-sm-8">
                     {% if form.phno.errors %}
-                      {{ form.phno(class="form-control is-invalid") }}
+                      {{ form.phno(class="form-control is-invalid", minlength=10, maxlength=10, placeholder="10-digit mobile number") }}
                       <div class="invalid-feedback">
                         {% for error in form.phno.errors %}
                           <span>{{ error }}</span>
                         {% endfor %}
                       </div>
                     {% else %}
-                      {{ form.phno(class="form-control") }}
+                      {{ form.phno(class="form-control", minlength=10, maxlength=10, placeholder="10-digit mobile number") }}
                     {% endif %}
                   </div>
                 </div>
