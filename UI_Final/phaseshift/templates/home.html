@@ -793,72 +793,93 @@
     <!-- ======= Venue Section ======= -->
     <section id="venue" class="wow fadeInUp">
 
-    <div class="container-fluid">
-
-      <div class="section-header">
-        <h2>Event Venue</h2>
-        <p>Event venue location info and gallery</p>
-      </div>
-
-      <div class="row no-gutters">
-        <div class="col-lg-6 venue-map">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15553.925973780291!2d77.5655258!3d12.9410122!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x5f4adbdbab8bd80f!2sBMS%20College%20of%20Engineering!5e0!3m2!1sen!2sin!4v1585216388842!5m2!1sen!2sin" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-          
+      <div class="container-fluid">
+        <div class="section-header">
+          <h2>Event Venue</h2>
+          <p>Event venue location info and gallery</p>
         </div>
-
-        <div class="col-lg-6 venue-info">
-          <div class="row justify-content-center">
-            <div class="col-11 col-lg-8">
-              <h3></h3>
-              <p></p>
+        <div class="row no-gutters">
+          <div class="col-lg-6 venue-map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15553.925973780291!2d77.5655258!3d12.9410122!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x5f4adbdbab8bd80f!2sBMS%20College%20of%20Engineering!5e0!3m2!1sen!2sin!4v1585216388842!5m2!1sen!2sin" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+          </div>
+          <div class="col-lg-6 venue-info">
+            <div class="row justify-content-center">
+              <div class="col-11 col-lg-8">
+                <h3>BMS College of Engineering</h3>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
-    </div>
-
-    <div class="container-fluid venue-gallery-container">
-      <div class="row no-gutters">
-
-        <div class="col-lg-3 col-md-4">
-          <div class="venue-gallery">
-            <a href="{{ url_for('static', filename='img/venue-gallery/venue1.jpg') }}" class="venobox" data-gall="venue-gallery"height="2592" width="2241">
-              <img src="{{ url_for('static', filename='img/venue-gallery/venue1.jpg') }}" alt="" class="img-fluid" >
-            </a>
+      <div class="container-fluid venue-gallery-container">
+        <div class="row no-gutters">
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="{{ url_for('static', filename='img/venue-gallery/p1.jpg') }}" class="venobox" data-gall="venue-gallery">
+                <img src="{{ url_for('static', filename='img/venue-gallery/p1.jpg') }}" alt="" class="propersize img-fluid">
+              </a>
+            </div>
           </div>
-        </div>
-
-        <div class="col-lg-3 col-md-4">
-          <div class="venue-gallery">
-            <a href="{{ url_for('static', filename='img/venue-gallery/venue2.jpg') }}" class="venobox" data-gall="venue-gallery" height="2592" width="2241">
-              <img src="{{ url_for('static', filename='img/venue-gallery/venue2.jpg') }}" alt="" class="img-fluid">
-            </a>
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="{{ url_for('static', filename='img/venue-gallery/p2.png') }}" class="venobox" data-gall="venue-gallery">
+                <img src="{{ url_for('static', filename='img/venue-gallery/p2.png') }}" alt="" class="propersize img-fluid">
+              </a>
+            </div>
           </div>
-        </div>
-
-        <div class="col-lg-3 col-md-4">
-          <div class="venue-gallery">
-            <a href="{{ url_for('static', filename='img/venue-gallery/venue5.jpg') }}" class="venobox" data-gall="venue-gallery">
-              <img src="{{ url_for('static', filename='img/venue-gallery/venue5.jpg') }}" alt="" class="img-fluid">
-            </a>
+  
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="{{ url_for('static', filename='img/venue-gallery/p3.jpg') }}" class="venobox" data-gall="venue-gallery">
+                <img src="{{ url_for('static', filename='img/venue-gallery/p3.jpg') }}" alt="" class="propersize img-fluid">
+              </a>
+            </div>
           </div>
-        </div>
-
-        <div class="col-lg-3 col-md-4">
-          <div class="venue-gallery">
-            <a href="{{ url_for('static', filename='img/venue-gallery/venue4.jpg') }}" class="venobox" data-gall="venue-gallery">
-              <img src="{{ url_for('static', filename='img/venue-gallery/venue4.jpg') }}" alt="" class="img-fluid">
-            </a>
+  
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="{{ url_for('static', filename='img/venue-gallery/p4.jpg') }}" class="venobox" data-gall="venue-gallery">
+                <img src="{{ url_for('static', filename='img/venue-gallery/p4.jpg') }}" alt="" class="propersize img-fluid">
+              </a>
+            </div>
           </div>
+  
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="{{ url_for('static', filename='img/venue-gallery/p5.jpg') }}" class="venobox" data-gall="venue-gallery">
+                <img src="{{ url_for('static', filename='img/venue-gallery/p5.jpg') }}" alt="" class="propersize img-fluid">
+              </a>
+            </div>
+          </div>
+  
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="{{ url_for('static', filename='img/venue-gallery/p6.jpg') }}" class="venobox" data-gall="venue-gallery">
+                <img src="{{ url_for('static', filename='img/venue-gallery/p6.jpg') }}" alt="" class="propersize img-fluid">
+              </a>
+            </div>
+          </div>
+  
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="{{ url_for('static', filename='img/venue-gallery/p7.jpg') }}" class="venobox" data-gall="venue-gallery">
+                <img src="{{ url_for('static', filename='img/venue-gallery/p7.jpg') }}" alt="" class="propersize img-fluid">
+              </a>
+            </div>
+          </div>
+  
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="{{ url_for('static', filename='img/venue-gallery/p8.jpg') }}" class="venobox" data-gall="venue-gallery">
+                <img src="{{ url_for('static', filename='img/venue-gallery/p8.jpg') }}" alt="" class="propersize img-fluid">
+              </a>
+            </div>
+          </div>
+  
         </div>
-
-
-
       </div>
-    </div>
-
-    </section><!-- End Venue Section -->
+  
+      </section><!-- End Venue Section -->
 
     <!-- ======= Gallery Section ======= -->
     <section id="gallery" class="section-with-bg wow fadeInUp">
