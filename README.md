@@ -13,8 +13,9 @@ Usage Steps:
    - `pip install Flask-SQLAlchemy`
    - `pip install flask-bcrypt`
    - `pip install flask-login`
+   - `pip install flask-mail`
 
-2. Execute `python run.py` once you have changed directory to UI_Test2
+2. Execute `python run.py` once you have changed directory to UI_Final
 
 to be continued...
 
