@@ -200,11 +200,11 @@ def registration(eventName):
         db.session.add(reg)
         db.session.commit()
         send_registration_mail(reg)
-        flash('You have successfully registered for {}. You should have received a mail confirming your registration.\nRegister for more events below!'.format(form.eventName.data), 'success')
+        flash('A mail has been sent to {} confirming your registration for {} event. Register for more events below!'.format(form.email.data,form.eventName.data), 'success')
         return redirect(url_for('all_events', choice='All'))
     events = Events.query.all()
     for event in events:
-        if eventName == event.name:
+        if eventName == event.evalue:
             isworkshop = False
             cords = []
             teamSize = '1'
@@ -215,10 +215,10 @@ def registration(eventName):
             for x in event.coordinators.split('#'):
                     cords.append(x)
             return render_template('event-details.html', title='Event Details', event=event, isworkshop=isworkshop, cords=cords, len=len(cords), form=form, teamSize=teamSize)
-    return render_template('404.html', title='Page not found', message='No such event exists')
+    return render_template('404.html', title='Page not found', message='No such event exists'), 404
 
 def send_registration_mail(reg):
-    msg = Message('PhaseShift Registration', sender='ps.registrations@yahoo.com', recipients=[reg.stud_email])
+    msg = Message('PhaseShift Registration', sender='phaseshift2020@gmail.com', recipients=[reg.stud_email])
     names = reg.stud_name.split('\r\n')
     usns = reg.stud_usn.split('\r\n')
     allnames = names[0]

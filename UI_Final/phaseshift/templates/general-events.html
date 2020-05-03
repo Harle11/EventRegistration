@@ -51,7 +51,7 @@
                     <img src="{{ url_for('static', filename='img/hotels/1.jpg') }}" alt="Event 1" class="img-fluid">
                   </div>
                   <div class="details">
-                    <h3><a href="{{ url_for('registration', eventName=event.name) }}">{{ event.name }}</a></h3>
+                    <h3><a href="{{ url_for('registration', eventName=event.evalue) }}">{{ event.name }}</a></h3>
                     <p>{{ event.etype }}</p>
                   </div>
                 </div>
@@ -66,7 +66,7 @@
                       <img src="{{ url_for('static', filename='img/hotels/2.jpg') }}" alt="Event 1" class="img-fluid">
                     </div>
                     <div class="details">
-                      <h3><a href="{{ url_for('registration', eventName=event.name) }}">{{ event.name }}</a></h3>
+                      <h3><a href="{{ url_for('registration', eventName=event.evalue) }}">{{ event.name }}</a></h3>
                       <p>{{ event.etype }}</p>
                     </div>
                   </div>

@@ -29,7 +29,7 @@
               <div class="event">
                 <img src="{{ url_for('static', filename='img/speakers/1.jpg') }}" alt="Event 1" class="img-fluid">
                 <div class="details">
-                  <h3><a href="{{ url_for('registration', eventName=event.name) }}">{{ event.name }}</a></h3>
+                  <h3><a href="{{ url_for('registration', eventName=event.evalue) }}">{{ event.name }}</a></h3>
                   <p>{{ event.dept }}</p>
                 </div>
               </div>
